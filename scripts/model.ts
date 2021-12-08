@@ -1,3 +1,4 @@
+
 interface budgetInterface 
 {
     description: string,
@@ -6,6 +7,14 @@ interface budgetInterface
     
 }
 
+interface modalInterface 
+{
+    total:number
+    expenseTotal:number
+    incomeTotal:number
+    allExp:object[]
+    allinc:object[]
+}
 
 
 
@@ -18,14 +27,7 @@ class BudgetData implements budgetInterface {
 }
 
 
-interface modalInterface 
-{
-    total:number
-    expenseTotal:number
-    incomeTotal:number
-    allExp:object[]
-    allinc:object[]
-}
+
 
 export class Model implements modalInterface{
     // User getters and setters to access data
@@ -37,50 +39,86 @@ export class Model implements modalInterface{
     expenseTotal: number;
     incomeTotal: number;
 
-
-    setTotals(total:number,expenseTotal:number,incomeTotal:number):void
+    constructor(total:number,expenseTotal:number,incomeTotal:number)
     {
-        // Totals are calculated in controller
         this.total = total;
         this.expenseTotal = expenseTotal;
         this.incomeTotal = incomeTotal;
-
-        console.log(this.total)
+        this.allExp = [];
+        this.allinc = [];
     }
+   
 
-    setIncomeValues(description:string,type:string,value:number):void
+    setTotals(value:number,type:string):void
     {
-        const incomeObj =  new BudgetData(description,type,value);
-        incomeObj.description = description;
-        incomeObj.type = type;
-        incomeObj.value = value;
+        // Totals are calculated in controller
+        
+        if(type == 'income')
+        {
+            this.incomeTotal += value;
+            this.total += value;
+        }
+         
 
-        this.saveIncomeObj({incomeObj});
+        if(type == 'expense')
+        {
+            this.expenseTotal += value;
+            this.total -= value;
+        }
+        
+        
+       
+
+        console.log(this.getTotals())
     }
 
-    setExpenseValue(description:string,type:string,value:number):void
+   
+    // Creates Unique ID for object
+    uuid = () =>
+    "xxxxxxxx-4xxx-yxxx".replace(/[xy]/g, function (c) {
+        var r = (Math.random() * 16) | 0,
+        v = c == "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+
+    getTotals():object
     {
-        const expenseObj = new BudgetData(description,type,value);
-        expenseObj.description = description;
-        expenseObj.type = type;
-        expenseObj.value = value;
+        return {
+            total:this.total,
+            expenseTotal: this.expenseTotal,
+            incomeTotal: this.incomeTotal
 
-        this.saveExpenseObj(expenseObj)
+        }
     }
 
-    saveIncomeObj(income:object):void
+    
+
+    saveDataToArr(desc:string, amount:string, type:string):void
     {
-        // pushes income object into array
-        console.log(income)
+        let object = {
+            id:this.uuid(),
+            desc,
+            amount,
+            type
+        }
+
+        // Push object to array
+        if(type == 'expense')
+        {
+            this.allExp.push(object)
+        }
+
+        if(type == 'income')
+        {
+            this.allinc.push(object)
+        }
+
+        console.log(this.allinc)
     }
 
-    saveExpenseObj(expense:object):void
-    {
-        // pushes expense object into array
-        console.log(expense)
-    }
 
-    static log(){
-          console.log("I am the view"); 
-      }
+
+    
+
+
   }

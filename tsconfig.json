@@ -3,5 +3,6 @@
         "target": "ES6",
         "outDir": "./dist",
         "rootDir": "scripts"
-    }
+    },
+        "exclude": ["node_modules"]
 }

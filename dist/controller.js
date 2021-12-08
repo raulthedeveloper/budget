@@ -1,25 +1,23 @@
 import { View } from './view.js';
 import { Model } from './model.js';
-const mainDisplayDom = document.getElementById('main-display');
-const displayIncomeTotal = document.getElementById('income-display');
-const displayExpenseTotal = document.getElementById('expense-display');
-const descriptionDom = document.getElementById('description');
-const amountDom = document.getElementById('amount');
-const type = document.getElementById('type');
 export class Controller {
-    constructor() {
-        // Get current total from model and value from input
-        this.calculateTotals = (current, value) => current + value;
+    update() {
     }
-    static log() {
-        console.log("I am the controller");
-    }
+    //create submit event listener
     init() {
-        const model = new Model();
-        const view = new View(mainDisplayDom, descriptionDom, displayIncomeTotal, displayExpenseTotal, amountDom);
+        const model = new Model(0, 0, 0);
+        const view = new View();
         // Get calculation inputs and put into total
-        model.setTotals(200, 222, 333);
-        // Method get called to update values
         view.setDisplayValue(model.total, model.incomeTotal, model.expenseTotal);
+        View.submit.addEventListener("click", () => {
+            let amount = parseInt(View.amountDom.value);
+            // Pass values to model to be created into a object and saved in array
+            model.saveDataToArr(View.descriptionDom.value, View.amountDom.value, View.type.value);
+            model.setTotals(amount, View.type.value);
+            view.setDisplayValue(model.total, model.incomeTotal, model.expenseTotal);
+            // display allInc and allExp
+            // view.addBudgetItems();
+        });
+        // Method get called to update values
     }
 }

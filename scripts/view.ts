@@ -1,39 +1,39 @@
-interface ViewInterface {
-  mainDisplayDom:HTMLElement;
-  displayIncomeTotal:HTMLElement;
-  displayExpenseTotal:HTMLElement;
-  descriptionDom:HTMLElement;
-  amountDom:HTMLElement;
-}
 
 
 
-export class View implements ViewInterface{
+export class View{
+
+static mainDisplayDom = document.getElementById('main-display') as HTMLElement;  
+static displayIncomeTotal = document.getElementById('income-display') as HTMLElement;
+static displayExpenseTotal = document.getElementById('expense-display') as HTMLElement;
+static descriptionDom = document.getElementById('description') as HTMLInputElement;
+static amountDom = document.getElementById('amount') as HTMLInputElement;
+static type = document.getElementById('type') as HTMLInputElement;
+static submit = document.getElementById('submit') as HTMLElement ;
   
-constructor(public mainDisplayDom: HTMLElement, public displayIncomeTotal:HTMLElement, public displayExpenseTotal:HTMLElement, public descriptionDom:HTMLElement, public amountDom:HTMLElement){}
 
-
-  getDomNodes():object
-  {
-    const domElements = {
-     mainDisplayDom : this.mainDisplayDom,
-      descriptionDom: this.descriptionDom,
-      displayIncomeTotal: this.displayIncomeTotal,
-      displayExpenseTotal: this.displayExpenseTotal,
-      amountDom: this.amountDom
-    }
-    // return dom nodes
-
-    return domElements;
-  }
 
   setDisplayValue(mainDisplay:number,incomeTotal:number,expenseTotal:number):void
   {
     // Sets the display value
-    this.mainDisplayDom.innerHTML = mainDisplay.toString();
-    this.displayIncomeTotal.innerHTML = incomeTotal.toString();
-    this.displayExpenseTotal.innerHTML = expenseTotal.toString();
+    View.mainDisplayDom.innerHTML = mainDisplay.toString();
+    View.displayIncomeTotal.innerHTML = incomeTotal.toString();
+    View.displayExpenseTotal.innerHTML = expenseTotal.toString();
   }
+
+  addBudgetItems(data:object, type:string):void
+  {
+    if(type == 'income')
+    {
+      console.log(data);
+    }
+    
+    if(type == 'expense')
+    {
+      console.log(data);
+    }
+  }
+
 
   static log():void
   {

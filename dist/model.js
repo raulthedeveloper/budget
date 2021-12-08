@@ -7,36 +7,51 @@ class BudgetData {
     }
 }
 export class Model {
-    setTotals(total, expenseTotal, incomeTotal) {
-        // Totals are calculated in controller
+    constructor(total, expenseTotal, incomeTotal) {
+        // Creates Unique ID for object
+        this.uuid = () => "xxxxxxxx-4xxx-yxxx".replace(/[xy]/g, function (c) {
+            var r = (Math.random() * 16) | 0, v = c == "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+        });
         this.total = total;
         this.expenseTotal = expenseTotal;
         this.incomeTotal = incomeTotal;
-        console.log(this.total);
+        this.allExp = [];
+        this.allinc = [];
     }
-    setIncomeValues(description, type, value) {
-        const incomeObj = new BudgetData(description, type, value);
-        incomeObj.description = description;
-        incomeObj.type = type;
-        incomeObj.value = value;
-        this.saveIncomeObj({ incomeObj });
+    setTotals(value, type) {
+        // Totals are calculated in controller
+        if (type == 'income') {
+            this.incomeTotal += value;
+            this.total += value;
+        }
+        if (type == 'expense') {
+            this.expenseTotal += value;
+            this.total -= value;
+        }
+        console.log(this.getTotals());
     }
-    setExpenseValue(description, type, value) {
-        const expenseObj = new BudgetData(description, type, value);
-        expenseObj.description = description;
-        expenseObj.type = type;
-        expenseObj.value = value;
-        this.saveExpenseObj(expenseObj);
+    getTotals() {
+        return {
+            total: this.total,
+            expenseTotal: this.expenseTotal,
+            incomeTotal: this.incomeTotal
+        };
     }
-    saveIncomeObj(income) {
-        // pushes income object into array
-        console.log(income);
-    }
-    saveExpenseObj(expense) {
-        // pushes expense object into array
-        console.log(expense);
-    }
-    static log() {
-        console.log("I am the view");
+    saveDataToArr(desc, amount, type) {
+        let object = {
+            id: this.uuid(),
+            desc,
+            amount,
+            type
+        };
+        // Push object to array
+        if (type == 'expense') {
+            this.allExp.push(object);
+        }
+        if (type == 'income') {
+            this.allinc.push(object);
+        }
+        console.log(this.allinc);
     }
 }

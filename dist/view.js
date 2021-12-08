@@ -1,29 +1,26 @@
 export class View {
-    constructor(mainDisplayDom, displayIncomeTotal, displayExpenseTotal, descriptionDom, amountDom) {
-        this.mainDisplayDom = mainDisplayDom;
-        this.displayIncomeTotal = displayIncomeTotal;
-        this.displayExpenseTotal = displayExpenseTotal;
-        this.descriptionDom = descriptionDom;
-        this.amountDom = amountDom;
-    }
-    getDomNodes() {
-        const domElements = {
-            mainDisplayDom: this.mainDisplayDom,
-            descriptionDom: this.descriptionDom,
-            displayIncomeTotal: this.displayIncomeTotal,
-            displayExpenseTotal: this.displayExpenseTotal,
-            amountDom: this.amountDom
-        };
-        // return dom nodes
-        return domElements;
-    }
     setDisplayValue(mainDisplay, incomeTotal, expenseTotal) {
         // Sets the display value
-        this.mainDisplayDom.innerHTML = mainDisplay.toString();
-        this.displayIncomeTotal.innerHTML = incomeTotal.toString();
-        this.displayExpenseTotal.innerHTML = expenseTotal.toString();
+        View.mainDisplayDom.innerHTML = mainDisplay.toString();
+        View.displayIncomeTotal.innerHTML = incomeTotal.toString();
+        View.displayExpenseTotal.innerHTML = expenseTotal.toString();
+    }
+    addBudgetItems(data, type) {
+        if (type == 'income') {
+            console.log(data);
+        }
+        if (type == 'expense') {
+            console.log(data);
+        }
     }
     static log() {
         console.log("I am the view");
     }
 }
+View.mainDisplayDom = document.getElementById('main-display');
+View.displayIncomeTotal = document.getElementById('income-display');
+View.displayExpenseTotal = document.getElementById('expense-display');
+View.descriptionDom = document.getElementById('description');
+View.amountDom = document.getElementById('amount');
+View.type = document.getElementById('type');
+View.submit = document.getElementById('submit');
