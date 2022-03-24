@@ -8,9 +8,9 @@ import {Model} from './model.js'
 
 export class Controller {
 
-    update():void
+    updateView():void
     {
-
+      // Get data from model and updates view
     }
 
       //create submit event listener
@@ -22,12 +22,15 @@ export class Controller {
           const model = new Model(0,0,0);
           const view = new View();
 
+
           // Get calculation inputs and put into total
 
           view.setDisplayValue(model.total,model.incomeTotal,model.expenseTotal);
 
             View.submit.addEventListener("click", () => {
 
+            View.submit.disabled = true
+            
             let amount = parseInt(View.amountDom.value);
             
             // Pass values to model to be created into a object and saved in array
@@ -37,8 +40,9 @@ export class Controller {
 
             view.setDisplayValue(model.total,model.incomeTotal,model.expenseTotal);
 
-            // display allInc and allExp
-            // view.addBudgetItems();
+           view.addToIncome(model.getAllInc())
+           view.addToExpense(model.getAllExp())
+         
 
             });
             

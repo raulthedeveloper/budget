@@ -9,6 +9,33 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
     <title>Hello, world!</title>
+
+    <style>
+      .columns{
+        height: 500px;
+        overflow: auto;
+        
+      }
+
+      ::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: darkgrey; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+    </style>
   </head>
   <body>
     <div class="jumbotron bg-dark text-light p-3 ">
@@ -33,8 +60,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="input-group">
-                    <input  type="text" class="form-control" id="description" placeholder="Item Description" aria-label="Item Description" aria-describedby="basic-addon2">
-                    <input placeholder="Amount" id="amount" class="form-control" type="number">
+                    <input  type="text" class="form-control" id="description" placeholder="Item Description" aria-label="Item Description" aria-describedby="basic-addon2" required>
+                    <input placeholder="Amount" id="amount" class="form-control" type="number" required>
                     <div class="input-group-append">
                       <select class="btn btn-outline-secondary p-2" id="type" type="button">
                           <option value="income">Income</option>
@@ -52,25 +79,32 @@
       
       <div class="container mt-3">
           <div class="row">
-              <div class="col-md-6">
+              <div  class="col-md-6">
                 <h3 class="text-center">Income</h3>
-                <div class="card">
+                <div class="columns" id="income-column">
+                  <div class="card">
+                    <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">12/22</span><span>X</span></div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item">Got paycheck<span style="float:right">x</span></li>
+                            <li class="list-group-item">Got paycheck</li>
                             
                             <li class="list-group-item list-group-item-success">$<span>4000</span></li>
                            
                           </ul>
                     </div>
+                    
                   </div>
+                </div>
+                
               </div>
               <div class="col-md-6">
                 <h3 class="text-center">Expense</h3>
-                <div class="card">
+                <div class="columns" id="expense-column">
+                  <div class="card">
+                    <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">12/22</span><span>X</span></div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item">Payed Mortgage<span style="float:right">x</span></li>
+                            <li class="list-group-item">Payed Mortgage</li>
                           
                             
                             
@@ -79,6 +113,8 @@
                           </ul>
                     </div>
                   </div>
+                </div>
+                
               </div>
           </div>
       </div>

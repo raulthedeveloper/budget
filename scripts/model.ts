@@ -16,6 +16,16 @@ interface modalInterface
     allinc:object[]
 }
 
+interface BudgetDataInterface{
+    id:string,
+    date:string,
+    desc:string,
+    amount:string,
+    type:string
+}
+
+
+
 
 
 class BudgetData implements budgetInterface {
@@ -57,6 +67,7 @@ export class Model implements modalInterface{
         {
             this.incomeTotal += value;
             this.total += value;
+            
         }
          
 
@@ -69,7 +80,6 @@ export class Model implements modalInterface{
         
        
 
-        console.log(this.getTotals())
     }
 
    
@@ -91,12 +101,21 @@ export class Model implements modalInterface{
         }
     }
 
+    getAllExp(){
+        return this.allExp
+    }
+
+    getAllInc(){
+        return this.allinc
+    }
+
     
 
     saveDataToArr(desc:string, amount:string, type:string):void
     {
-        let object = {
+        let object:BudgetDataInterface = {
             id:this.uuid(),
+            date:new Date().toLocaleDateString("en-US"),
             desc,
             amount,
             type
@@ -113,7 +132,8 @@ export class Model implements modalInterface{
             this.allinc.push(object)
         }
 
-        console.log(this.allinc)
+        
+
     }
 
 

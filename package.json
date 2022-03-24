@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"tsc ./scripts/main.ts --outDir ./dist --target es6 ",
+    "watch":"tsc ./scripts/main.ts --outDir ./dist --watch --target es6"
   },
   "repository": {
     "type": "git",
