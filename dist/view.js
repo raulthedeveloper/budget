@@ -31,8 +31,8 @@ export class View {
         if (data.length > 0) {
             View.incomeColumn.innerHTML = "";
             data.forEach(e => {
-                View.incomeColumn.innerHTML += `<div class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.date}</span><span>X</span></div>
-        <div class="card-body"><ul class="list-group"><li class="list-group-item">${e.desc}<span style="float:right">x</span></li><li class="list-group-item list-group-item-success">$<span>${e.amount}</span></li></ul> </div></div>`;
+                View.incomeColumn.innerHTML += `<div class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.date}</span><span  class="delete-button">X</span></div>
+        <div class="card-body"><ul class="list-group"><li class="list-group-item">${e.desc}</li><li class="list-group-item list-group-item-success">$<span>${e.amount}</span></li></ul> </div></div>`;
             });
         }
         this.clearField();
@@ -42,7 +42,7 @@ export class View {
         if (data.length > 0) {
             View.expenseColumn.innerHTML = "";
             data.forEach(e => {
-                View.expenseColumn.innerHTML += `<div class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.date}</span><span>X</span></div><div class="card-body"><ul class="list-group"><li class="list-group-item">${e.desc}<span style="float:right">x</span></li><li class="list-group-item list-group-item-danger">$<span>${e.amount}</span></li></ul> </div></div>`;
+                View.expenseColumn.innerHTML += `<div class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.date}</span><span class="delete-button">X</span></div><div class="card-body"><ul class="list-group"><li class="list-group-item">${e.desc}</li><li class="list-group-item list-group-item-danger">$<span>${e.amount}</span></li></ul> </div></div>`;
             });
         }
         this.clearField();
@@ -57,3 +57,7 @@ View.descriptionDom = document.getElementById('description');
 View.amountDom = document.getElementById('amount');
 View.type = document.getElementById('type');
 View.submit = document.getElementById('submit');
+View.email_login = document.getElementById('email_login');
+View.email_register = document.getElementById('email_register');
+View.password_login = document.getElementById("password_login");
+View.passwrod_register = document.getElementById("password_register");

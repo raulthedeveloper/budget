@@ -9,3 +9,4 @@ document.getElementById("description").addEventListener("keyup", function () {
 document.getElementById("amount").addEventListener("keyup", function () {
     View.formValidation();
 });
+View.submit.disabled = true;

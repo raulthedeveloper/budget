@@ -1,13 +1,10 @@
-class BudgetData {
-    // Contains the same object data and methods as Expense and Income
-    constructor(description, type, value) {
-        this.description = description;
-        this.type = type;
-        this.value = value;
-    }
-}
+import { BudgetItem } from "./dataModels.js";
+import { DataAccessLayer } from "./dal.js";
 export class Model {
     constructor(total, expenseTotal, incomeTotal) {
+        // User getters and setters to access data
+        // Takes values from controller and gives it to income and expense object
+        this.dal = new DataAccessLayer();
         // Creates Unique ID for object
         this.uuid = () => "xxxxxxxx-4xxx-yxxx".replace(/[xy]/g, function (c) {
             var r = (Math.random() * 16) | 0, v = c == "x" ? r : (r & 0x3) | 0x8;
@@ -37,26 +34,29 @@ export class Model {
             incomeTotal: this.incomeTotal
         };
     }
+    calculateTotals() {
+        this.allExp.forEach(e => {
+            this.setTotals(e.amount, e.type);
+        });
+        this.allinc.forEach(e => {
+            this.setTotals(e.amount, e.type);
+        });
+    }
     getAllExp() {
         return this.allExp;
     }
     getAllInc() {
         return this.allinc;
     }
-    saveDataToArr(desc, amount, type) {
-        let object = {
-            id: this.uuid(),
-            date: new Date().toLocaleDateString("en-US"),
-            desc,
-            amount,
-            type
-        };
-        // Push object to array
+    saveDataToArr(date, desc, amount, type) {
+        // let budgetItem = new BudgetItem(this.uuid(),new Date().toLocaleDateString("en-US"),desc,amount,type)
+        let budgetItem = new BudgetItem(null, date, desc, amount, type);
+        // Push budgetItem to array
         if (type == 'expense') {
-            this.allExp.push(object);
+            this.allExp.push(budgetItem);
         }
         if (type == 'income') {
-            this.allinc.push(object);
+            this.allinc.push(budgetItem);
         }
     }
 }

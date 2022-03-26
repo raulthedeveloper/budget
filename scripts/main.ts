@@ -1,6 +1,6 @@
 import {Controller} from './controller.js'
-import { Model } from './model.js';
 import { View } from './view.js';
+
 
 // Completely object oriented program. No functions only object methods allowed.
 
@@ -15,4 +15,6 @@ document.getElementById("description").addEventListener("keyup", function() {
 document.getElementById("amount").addEventListener("keyup", function() {
     View.formValidation()
 });
+
+View.submit.disabled = true
 

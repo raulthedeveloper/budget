@@ -1,50 +1,16 @@
+import {BudgetDataInterface,budgetInterface,modelInterface} from "./Interfaces/Interfaces.js"
 
-interface budgetInterface 
-{
-    description: string,
-    type:string,
-    value:number,        
-    
-}
-
-interface modalInterface 
-{
-    total:number
-    expenseTotal:number
-    incomeTotal:number
-    allExp:object[]
-    allinc:object[]
-}
-
-interface BudgetDataInterface{
-    id:string,
-    date:string,
-    desc:string,
-    amount:string,
-    type:string
-}
+import {BudgetItem } from "./dataModels.js";
+import { DataAccessLayer } from "./dal.js";
 
 
 
-
-
-class BudgetData implements budgetInterface {
-    
-    // Contains the same object data and methods as Expense and Income
-    constructor(public description:string,public type:string,public value:number){
-        
-    }  
-}
-
-
-
-
-export class Model implements modalInterface{
+export class Model implements modelInterface{
     // User getters and setters to access data
     // Takes values from controller and gives it to income and expense object
-    
-    allExp: object[];
-    allinc: object[];
+    dal:DataAccessLayer = new DataAccessLayer()
+    allExp: BudgetDataInterface[];
+    allinc: BudgetDataInterface[];
     total: number;
     expenseTotal: number;
     incomeTotal: number;
@@ -76,9 +42,7 @@ export class Model implements modalInterface{
             this.expenseTotal += value;
             this.total -= value;
         }
-        
-        
-       
+   
 
     }
 
@@ -101,6 +65,19 @@ export class Model implements modalInterface{
         }
     }
 
+    calculateTotals():void{
+       
+        this.allExp.forEach(e =>{
+            this.setTotals(e.amount,e.type)
+        })
+
+        this.allinc.forEach(e =>{
+            this.setTotals(e.amount,e.type)
+        })
+
+
+    }
+
     getAllExp(){
         return this.allExp
     }
@@ -111,34 +88,28 @@ export class Model implements modalInterface{
 
     
 
-    saveDataToArr(desc:string, amount:string, type:string):void
+    saveDataToArr(date:string,desc:string, amount:number, type:string):void
     {
-        let object:BudgetDataInterface = {
-            id:this.uuid(),
-            date:new Date().toLocaleDateString("en-US"),
-            desc,
-            amount,
-            type
-        }
+        
 
-        // Push object to array
+        // let budgetItem = new BudgetItem(this.uuid(),new Date().toLocaleDateString("en-US"),desc,amount,type)
+
+        let budgetItem = new BudgetItem(null,date,desc,amount,type)
+
+
+        // Push budgetItem to array
         if(type == 'expense')
         {
-            this.allExp.push(object)
+            this.allExp.push(budgetItem)
         }
 
         if(type == 'income')
         {
-            this.allinc.push(object)
+            this.allinc.push(budgetItem)
         }
 
         
 
     }
-
-
-
-    
-
 
   }

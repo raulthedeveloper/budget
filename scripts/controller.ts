@@ -1,5 +1,13 @@
-import {View} from './view.js'
-import {Model} from './model.js'
+import {
+  View
+} from './view.js'
+import {
+  Model
+} from './model.js'
+import {
+  DataAccessLayer
+} from "./dal.js"
+import { BudgetItem } from './dataModels.js';
 
 
 
@@ -8,50 +16,55 @@ import {Model} from './model.js'
 
 export class Controller {
 
-    updateView():void
-    {
-      // Get data from model and updates view
-    }
-
-      //create submit event listener
-
-      init():void
-      {
-        
-
-          const model = new Model(0,0,0);
-          const view = new View();
+  model: Model = new Model(0, 0, 0);
+  view: View = new View();
+  dal: DataAccessLayer = new DataAccessLayer();
 
 
-          // Get calculation inputs and put into total
+  loadFromDb(): void {
 
-          view.setDisplayValue(model.total,model.incomeTotal,model.expenseTotal);
+    this.dal.get().forEach(e => {
+      this.model.saveDataToArr(e.date,e.desc, e.amount, e.type)
+      this.view.addToIncome(this.model.getAllInc())
+      this.view.addToExpense(this.model.getAllExp())
+      
+    });
 
-            View.submit.addEventListener("click", () => {
+    this.model.calculateTotals()
 
-            View.submit.disabled = true
-            
-            let amount = parseInt(View.amountDom.value);
-            
-            // Pass values to model to be created into a object and saved in array
-            model.saveDataToArr(View.descriptionDom.value,View.amountDom.value,View.type.value);
-
-            model.setTotals(amount,View.type.value);
-
-            view.setDisplayValue(model.total,model.incomeTotal,model.expenseTotal);
-
-           view.addToIncome(model.getAllInc())
-           view.addToExpense(model.getAllExp())
-         
-
-            });
-            
-
-
-          
-        
-
-          // Method get called to update values
-          
-      }
   }
+
+  //create submit event listener
+
+  init(): void {
+    this.loadFromDb();
+
+    // Get calculation inputs and put into total
+
+    this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
+
+    // Submit button
+    View.submit.addEventListener("click", () => {
+
+      View.submit.disabled = true
+
+      let amount = parseInt(View.amountDom.value);
+
+      this.dal.post(new BudgetItem(null,null,View.descriptionDom.value, amount, View.type.value))
+      // Pass values to model to be created into a object and saved in array
+      this.model.saveDataToArr(null,View.descriptionDom.value, amount, View.type.value);
+
+      this.model.setTotals(amount, View.type.value);
+
+      this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
+
+      this.view.addToIncome(this.model.getAllInc())
+      this.view.addToExpense(this.model.getAllExp())
+
+      console.log(this.model)
+
+    });
+
+
+  }
+}

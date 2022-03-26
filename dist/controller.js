@@ -1,25 +1,38 @@
 import { View } from './view.js';
 import { Model } from './model.js';
+import { DataAccessLayer } from "./dal.js";
+import { BudgetItem } from './dataModels.js';
 export class Controller {
-    updateView() {
-        // Get data from model and updates view
+    constructor() {
+        this.model = new Model(0, 0, 0);
+        this.view = new View();
+        this.dal = new DataAccessLayer();
+    }
+    loadFromDb() {
+        this.dal.get().forEach(e => {
+            this.model.saveDataToArr(e.date, e.desc, e.amount, e.type);
+            this.view.addToIncome(this.model.getAllInc());
+            this.view.addToExpense(this.model.getAllExp());
+        });
+        this.model.calculateTotals();
     }
     //create submit event listener
     init() {
-        const model = new Model(0, 0, 0);
-        const view = new View();
+        this.loadFromDb();
         // Get calculation inputs and put into total
-        view.setDisplayValue(model.total, model.incomeTotal, model.expenseTotal);
+        this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
+        // Submit button
         View.submit.addEventListener("click", () => {
             View.submit.disabled = true;
             let amount = parseInt(View.amountDom.value);
+            this.dal.post(new BudgetItem(null, null, View.descriptionDom.value, amount, View.type.value));
             // Pass values to model to be created into a object and saved in array
-            model.saveDataToArr(View.descriptionDom.value, View.amountDom.value, View.type.value);
-            model.setTotals(amount, View.type.value);
-            view.setDisplayValue(model.total, model.incomeTotal, model.expenseTotal);
-            view.addToIncome(model.getAllInc());
-            view.addToExpense(model.getAllExp());
+            this.model.saveDataToArr(null, View.descriptionDom.value, amount, View.type.value);
+            this.model.setTotals(amount, View.type.value);
+            this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
+            this.view.addToIncome(this.model.getAllInc());
+            this.view.addToExpense(this.model.getAllExp());
+            console.log(this.model);
         });
-        // Method get called to update values
     }
 }
