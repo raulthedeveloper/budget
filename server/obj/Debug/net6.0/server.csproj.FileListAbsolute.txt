@@ -25,3 +25,9 @@ C:\Users\raul_\Desktop\Projects\budget\server\obj\Debug\net6.0\refint\server.dll
 C:\Users\raul_\Desktop\Projects\budget\server\obj\Debug\net6.0\server.pdb
 C:\Users\raul_\Desktop\Projects\budget\server\obj\Debug\net6.0\server.genruntimeconfig.cache
 C:\Users\raul_\Desktop\Projects\budget\server\obj\Debug\net6.0\ref\server.dll
+C:\Users\raul_\Desktop\Projects\budget\server\bin\Debug\net6.0\System.Data.SqlClient.dll
+C:\Users\raul_\Desktop\Projects\budget\server\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
+C:\Users\raul_\Desktop\Projects\budget\server\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
+C:\Users\raul_\Desktop\Projects\budget\server\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
+C:\Users\raul_\Desktop\Projects\budget\server\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\raul_\Desktop\Projects\budget\server\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
