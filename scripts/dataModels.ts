@@ -15,14 +15,14 @@ export class FormRegister extends Form{
 export class BudgetItem implements BudgetDataInterface {
     id:number | string | null;
     date:string;
-    desc:string;
+    description:string;
     amount:number;
     type:string;
 
     constructor(id:string,date:string,desc:string,amount:number,type:string){
         this.id = id;
         this.date = date;
-        this.desc = desc;
+        this.description = desc;
         this.amount = amount;
         this.type = type
 

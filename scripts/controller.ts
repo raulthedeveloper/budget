@@ -18,17 +18,20 @@ export class Controller {
 
   model: Model = new Model(0, 0, 0);
   view: View = new View();
-  dal: DataAccessLayer = new DataAccessLayer();
+  userId:string = "1"
+  apiUrl:string = `https://localhost:7242/api/Budget/get_user_items/${this.userId}`
+  dal: DataAccessLayer = new DataAccessLayer(this.apiUrl);
 
 
-  loadFromDb(): void {
+ async loadFromDb() {
+  (await this.dal.get()).forEach(e => {
+    this.model.saveDataToArr(e.date,e.description, e.amount, e.type)
+    this.view.addToIncome(this.model.getAllInc())
+    this.view.addToExpense(this.model.getAllExp())
+    
 
-    this.dal.get().forEach(e => {
-      this.model.saveDataToArr(e.date,e.desc, e.amount, e.type)
-      this.view.addToIncome(this.model.getAllInc())
-      this.view.addToExpense(this.model.getAllExp())
-      
-    });
+  })
+    
 
     this.model.calculateTotals()
 

@@ -6,7 +6,7 @@ export class BudgetItem {
     constructor(id, date, desc, amount, type) {
         this.id = id;
         this.date = date;
-        this.desc = desc;
+        this.description = desc;
         this.amount = amount;
         this.type = type;
     }

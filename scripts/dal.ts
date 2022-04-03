@@ -5,34 +5,19 @@ import { budgetInterface } from "./Interfaces/Interfaces"
 
 export class DataAccessLayer {
     apiUrl:string
-    constructor(){
-
+    constructor(apiUrl:string){
+      this.apiUrl = apiUrl;
     }
 
-    get():BudgetItem[]{
-       return [
-            {
-              id:123,
-              date:"2/11/22",
-              desc:"Rent",
-              amount:1111,
-              type:"expense"
-            },
-            {
-              id:1223,
-              date:"2/11/22",
-              desc:"Car Payment",
-              amount:400,
-              type:"expense"
-            },
-            {
-                id:12323,
-                date:"2/11/22",
-                desc:"Paycheck",
-                amount:2000,
-                type:"income"
-              },
-          ]
+    get():Promise<BudgetItem[]>{
+     return fetch(this.apiUrl)
+          .then(response => response.json())
+          .then(data => {
+
+            return data;
+
+          })
+          .catch(err => console.error(err));
     }
 
     put(id:number,item:BudgetItem):void{

@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { View } from './view.js';
 import { Model } from './model.js';
 import { DataAccessLayer } from "./dal.js";
@@ -6,15 +15,19 @@ export class Controller {
     constructor() {
         this.model = new Model(0, 0, 0);
         this.view = new View();
-        this.dal = new DataAccessLayer();
+        this.userId = "1";
+        this.apiUrl = `https://localhost:7242/api/Budget/get_user_items/${this.userId}`;
+        this.dal = new DataAccessLayer(this.apiUrl);
     }
     loadFromDb() {
-        this.dal.get().forEach(e => {
-            this.model.saveDataToArr(e.date, e.desc, e.amount, e.type);
-            this.view.addToIncome(this.model.getAllInc());
-            this.view.addToExpense(this.model.getAllExp());
+        return __awaiter(this, void 0, void 0, function* () {
+            (yield this.dal.get()).forEach(e => {
+                this.model.saveDataToArr(e.date, e.description, e.amount, e.type);
+                this.view.addToIncome(this.model.getAllInc());
+                this.view.addToExpense(this.model.getAllExp());
+            });
+            this.model.calculateTotals();
         });
-        this.model.calculateTotals();
     }
     //create submit event listener
     init() {

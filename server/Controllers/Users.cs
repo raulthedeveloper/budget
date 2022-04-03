@@ -1,16 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using server.Models;
 using server.DataAccessLayer;
+using server.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace server.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private UserDal  db = new UserDal();
+        private IJwtAuthenicationManager jwtAuthenticationManager;
+        private UserDal db = new UserDal();
+
+        public UsersController(IJwtAuthenicationManager jwtAuthenicationManager)
+        {
+            this.jwtAuthenticationManager = jwtAuthenicationManager;
+        }
+
         // GET: api/<Users>
         [HttpGet]
         public IEnumerable<Users> Get()
@@ -23,6 +33,19 @@ namespace server.Controllers
         public Users Get(int id)
         {
             return db.GetUser(id);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult AuthorizeUser([FromBody] Users data)
+        {
+           var token = jwtAuthenticationManager.AuthenticateUser(data.Email, data.Password);
+
+            if(token == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(token);
         }
 
         // POST api/<Users>

@@ -36,7 +36,7 @@ namespace server.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] BudgetData data)
         {
-            DAL.AddRecord(data);
+            db.AddRecord(data);
 
             return Ok(data);
 
@@ -44,14 +44,16 @@ namespace server.Controllers
 
         // PUT api/<Budget>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] BudgetData data)
         {
+
         }
 
         // DELETE api/<Budget>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            db.Delete(id);
         }
     }
 }

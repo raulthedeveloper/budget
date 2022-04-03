@@ -53,6 +53,20 @@ namespace server.DataAccessLayer
 
         public void EditUser(int id, Users user)
         {
+            try
+            {
+                SqlCommand cm = new SqlCommand($"",conn);
+                conn.Open();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally 
+            {
+                conn.Close();
+            }
 
         }
 
@@ -91,6 +105,38 @@ namespace server.DataAccessLayer
             {
                 conn.Close();
             } 
+        }
+
+        public Users GetUser(string email, string password)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand($"SELECT email, password FROM {tableName} WHERE email='{email}' AND password='{password}'", conn);
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                Users users = new Users();
+
+                while (reader.Read())
+                {
+                    users.Email = (string)reader["email"];  
+                    users.Password = (string)reader["password"];
+                }
+
+                return users;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
         }
 
         public Users GetUser(int Id)

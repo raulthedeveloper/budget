@@ -37,7 +37,7 @@ namespace server.DataAccessLayer
         }
 
 
-        public static void AddRecord(BudgetData data)
+        public void AddRecord(BudgetData data)
         {
 
             try
@@ -81,6 +81,7 @@ namespace server.DataAccessLayer
                 {
                     BudgetData data = new BudgetData();
                     data.Id = (int)reader["id"];
+                    data.UserId = (int)reader["userId"];
                     data.Description = (string)reader["description"];
                     data.Amount = (int)reader["amount"];
                     data.Type = (string)reader["type"];
@@ -104,7 +105,7 @@ namespace server.DataAccessLayer
         {
             try
             {
-                SqlCommand cm = new SqlCommand($"SELECT description, amount, type FROM {tableName}", conn);
+                SqlCommand cm = new SqlCommand($"SELECT id,userId,description, amount, type FROM {tableName}", conn);
                 conn.Open();
 
                 cm.ExecuteNonQuery();
@@ -116,7 +117,8 @@ namespace server.DataAccessLayer
                 while (sqlDataReader.Read())
                 {
                     BudgetData budgetData = new BudgetData();
-
+                    budgetData.Id = (int)sqlDataReader["id"];
+                    budgetData.UserId = (int)sqlDataReader["userId"];
                     budgetData.Description = (string)sqlDataReader["description"];
                     budgetData.Amount = (int)sqlDataReader["amount"];
                     budgetData.Type = (string)sqlDataReader["type"];
@@ -125,24 +127,58 @@ namespace server.DataAccessLayer
 
                 return list;
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;
+                Console.WriteLine(e.Message);
+                 throw;
             }
             finally { 
                 conn.Close();
             }
         }
 
-        public static void Update()
-        {
+        
 
+        public void Update(int id, BudgetData data)
+        {
+            try
+            {
+                SqlCommand cm = new SqlCommand($"UPDATE {tableName} SET description = {data.Description}, amount = {data.Amount}, type = {data.Description} WHERE id = {id}",conn);
+                conn.Open();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
-        public static void Delete()
+        public void Delete(int id)
         {
+            try
+            {
+                SqlCommand cm = new SqlCommand($"DELETE FROM {tableName} WHERE id = {id}", conn);
 
+                conn.Open();
+
+                cm.ExecuteNonQuery();
+
+                Console.WriteLine("Record Deleted");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }
