@@ -1,6 +1,6 @@
 // Create connections to api
-import { BudgetItem } from "./dataModels"
-import { budgetInterface } from "./Interfaces/Interfaces"
+import { BudgetItem } from "../dataModels"
+import { budgetInterface } from "../Interfaces/Interfaces"
 
 
 export class DataAccessLayer {

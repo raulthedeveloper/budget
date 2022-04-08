@@ -1,6 +1,10 @@
-export class Form {
+export class LoginForm {
+    constructor(email, password) {
+        this.email = email;
+        this.password = password;
+    }
 }
-export class FormRegister extends Form {
+export class RegisterForm extends LoginForm {
 }
 export class BudgetItem {
     constructor(id, date, desc, amount, type) {

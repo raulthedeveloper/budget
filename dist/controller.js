@@ -9,15 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { View } from './view.js';
 import { Model } from './model.js';
-import { DataAccessLayer } from "./dal.js";
+import { DataAccessLayer } from "./DAL/BudgetDal.js";
 import { BudgetItem } from './dataModels.js';
+import { UserForm } from "./userForm.js";
 export class Controller {
     constructor() {
         this.model = new Model(0, 0, 0);
         this.view = new View();
-        this.userId = "1";
+        this.userId = "3";
         this.apiUrl = `https://localhost:7242/api/Budget/get_user_items/${this.userId}`;
         this.dal = new DataAccessLayer(this.apiUrl);
+        this.userForm = new UserForm(View.email_register, View.password_register, View.email_login, View.password_login);
     }
     loadFromDb() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -45,7 +47,23 @@ export class Controller {
             this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
             this.view.addToIncome(this.model.getAllInc());
             this.view.addToExpense(this.model.getAllExp());
-            console.log(this.model);
+        });
+        View.descriptionDom.addEventListener("keyup", function () {
+            View.formValidation();
+        });
+        View.amountDom.addEventListener("keyup", function () {
+            View.formValidation();
+        });
+        View.submit.disabled = true;
+        View.submit_user_register.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.userForm.registerUser();
+            console.log(this.userForm);
+        });
+        View.submit_user_login.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.userForm.signUserIn();
+            console.log("submit works on login");
         });
     }
 }

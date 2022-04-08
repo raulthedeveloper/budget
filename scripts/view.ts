@@ -17,7 +17,10 @@ static email_login = document.getElementById('email_login') as HTMLFormElement
 static email_register = document.getElementById('email_register') as HTMLFormElement
 
 static password_login = document.getElementById("password_login") as HTMLFormElement
-static passwrod_register = document.getElementById("password_register") as HTMLFormElement
+static password_register = document.getElementById("password_register") as HTMLFormElement
+
+static submit_user_register = document.getElementById('submit_user_register') as HTMLFormElement;
+static submit_user_login = document.getElementById('submit_user_login') as HTMLFormElement;
   
 
 
@@ -49,6 +52,8 @@ static passwrod_register = document.getElementById("password_register") as HTMLF
     View.descriptionDom.focus()
   }
 
+ 
+
   static formValidation():void{
       if(View.descriptionDom.value == "" || View.descriptionDom.value == null || View.amountDom.value == "" || View.amountDom.value == null){
         View.submit.disabled = true
@@ -67,7 +72,7 @@ static passwrod_register = document.getElementById("password_register") as HTMLF
       });
       
     }
-      
+    
     this.clearField()
   }
 

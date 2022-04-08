@@ -60,4 +60,6 @@ View.submit = document.getElementById('submit');
 View.email_login = document.getElementById('email_login');
 View.email_register = document.getElementById('email_register');
 View.password_login = document.getElementById("password_login");
-View.passwrod_register = document.getElementById("password_register");
+View.password_register = document.getElementById("password_register");
+View.submit_user_register = document.getElementById('submit_user_register');
+View.submit_user_login = document.getElementById('submit_user_login');

@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using MySqlConnector;
 using server.Models;
 
 namespace server.DataAccessLayer
 {
     public class UserDal
     {
-        private static string connectionString = "data source=X13\\SQLEXPRESS; database=budget; integrated security=SSPI";
+        // private static string connectionString = "data source=X13\\SQLEXPRESS; database=budget; integrated security=SSPI";
+        private static string connectionString = "server=localhost;user=raul;password=Freemind2!;port=3306;database=budget";
+        
 
-        private static SqlConnection conn = new SqlConnection(connectionString);
+        private static MySqlConnection conn = new MySqlConnection(connectionString);
         private static string tableName = "budget_users";
 
         // Will be used as Data Access Layer for Users
@@ -17,7 +20,7 @@ namespace server.DataAccessLayer
         {
             try
             {
-                SqlCommand cmd = new SqlCommand($"INSERT INTO {tableName}(email,password) VALUES ('{data.Email}','{data.Password}')", conn);
+               MySqlCommand cmd = new MySqlCommand($"INSERT INTO {tableName}(email,password) VALUES ('{data.Email}','{data.Password}')", conn);
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Record Inserted correctly");
@@ -55,7 +58,7 @@ namespace server.DataAccessLayer
         {
             try
             {
-                SqlCommand cm = new SqlCommand($"",conn);
+                MySqlCommand cm = new MySqlCommand($"",conn);
                 conn.Open();
             }
             catch (Exception)
@@ -74,10 +77,10 @@ namespace server.DataAccessLayer
         {
             try
             {
-                SqlCommand sql = new SqlCommand($"SELECT * FROM {tableName}", conn);
+                MySqlCommand sql = new MySqlCommand($"SELECT * FROM {tableName}", conn);
                 conn.Open();
 
-                SqlDataReader reader = sql.ExecuteReader();
+               MySqlDataReader reader = sql.ExecuteReader();
 
                 List<Users> users = new List<Users>();
 
@@ -111,10 +114,10 @@ namespace server.DataAccessLayer
         {
             try
             {
-                SqlCommand cmd = new SqlCommand($"SELECT email, password FROM {tableName} WHERE email='{email}' AND password='{password}'", conn);
+                MySqlCommand cmd = new MySqlCommand($"SELECT email, password FROM {tableName} WHERE email='{email}' AND password='{password}'", conn);
                 conn.Open();
 
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
 
                 Users users = new Users();
 
@@ -143,10 +146,10 @@ namespace server.DataAccessLayer
         {
             try
             {   
-                SqlCommand cmd = new SqlCommand($"SELECT * FROM {tableName} WHERE id = '{Id}'",conn);
+                MySqlCommand cmd = new MySqlCommand($"SELECT * FROM {tableName} WHERE id = '{Id}'",conn);
                 conn.Open();
 
-                SqlDataReader r = cmd.ExecuteReader();
+                MySqlDataReader r = cmd.ExecuteReader();
 
                 Users users = new Users();
 

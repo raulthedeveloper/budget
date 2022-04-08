@@ -6,8 +6,10 @@ import {
 } from './model.js'
 import {
   DataAccessLayer
-} from "./dal.js"
+} from "./DAL/BudgetDal.js"
 import { BudgetItem } from './dataModels.js';
+
+import {UserForm} from "./userForm.js";
 
 
 
@@ -18,9 +20,10 @@ export class Controller {
 
   model: Model = new Model(0, 0, 0);
   view: View = new View();
-  userId:string = "1"
+  userId:string = "3"
   apiUrl:string = `https://localhost:7242/api/Budget/get_user_items/${this.userId}`
   dal: DataAccessLayer = new DataAccessLayer(this.apiUrl);
+  userForm: UserForm = new UserForm(View.email_register,View.password_register,View.email_login,View.password_login);
 
 
  async loadFromDb() {
@@ -64,10 +67,34 @@ export class Controller {
       this.view.addToIncome(this.model.getAllInc())
       this.view.addToExpense(this.model.getAllExp())
 
-      console.log(this.model)
 
     });
 
+    View.descriptionDom.addEventListener("keyup", function() {
+      
+      View.formValidation()
+  });
+  
+    View.amountDom.addEventListener("keyup", function() {
+      View.formValidation()
+  });
+  
+    View.submit.disabled = true
+
+
+
+    View.submit_user_register.addEventListener("click", (e) =>{
+      e.preventDefault();
+      this.userForm.registerUser();
+      console.log(this.userForm);
+      
+    })
+
+    View.submit_user_login.addEventListener("click",(e) =>{
+      e.preventDefault();
+      this.userForm.signUserIn();
+      console.log("submit works on login");
+    })
 
   }
 }

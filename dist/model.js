@@ -1,5 +1,5 @@
 import { BudgetItem } from "./dataModels.js";
-import { DataAccessLayer } from "./dal.js";
+import { DataAccessLayer } from "./DAL/BudgetDal.js";
 export class Model {
     constructor(total, expenseTotal, incomeTotal) {
         // User getters and setters to access data

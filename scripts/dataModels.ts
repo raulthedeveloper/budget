@@ -3,13 +3,20 @@ import {BudgetDataInterface,FormInterface,BudgetUiInterface} from "./Interfaces/
 
 
 
-export class Form implements FormInterface{
+export class LoginForm implements FormInterface{
+    
     email:string | undefined
     password:string | undefined
+
+    constructor(email,password){
+        this.email = email;
+        this.password = password
+    }
 }
 
-export class FormRegister extends Form{
+export class RegisterForm extends LoginForm{
     confirmPassword: string | undefined
+    //Add confirm password
 }
 
 export class BudgetItem implements BudgetDataInterface {

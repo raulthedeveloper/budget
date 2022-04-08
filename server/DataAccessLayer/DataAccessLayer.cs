@@ -1,5 +1,6 @@
 ﻿using server.Models;
 using System.Data.SqlClient;
+using MySqlConnector;
 
 namespace server.DataAccessLayer
 {
@@ -7,9 +8,10 @@ namespace server.DataAccessLayer
     {
         private static readonly string tableName = "budget_items";
 
-        private static string connectionString = "data source=X13\\SQLEXPRESS; database=budget; integrated security=SSPI";
+        // private static string connectionString = "data source=X13\\SQLEXPRESS; database=budget; integrated security=SSPI";
+        private static string connectionString = "server=localhost;user=raul;password=Freemind2!;database=budget";
 
-        private static SqlConnection conn = new SqlConnection(connectionString);
+        private static MySqlConnection conn = new MySqlConnection(connectionString);
 
         public static void CreateTable()
         {
@@ -17,7 +19,7 @@ namespace server.DataAccessLayer
             {
                 // Creating Connection  
                 // writing sql query  
-                SqlCommand cm = new SqlCommand("CREATE TABLE IF NOT EXIST budget_data(id int not null, description varchar(255), amount int, type varchar(10)", conn);
+                MySqlCommand cm = new MySqlCommand("CREATE TABLE IF NOT EXIST budget_data(id int not null, description varchar(255), amount int, type varchar(10)", conn);
                 // Opening Connection  
                 conn.Open();
                 // Executing the SQL query  
@@ -44,7 +46,7 @@ namespace server.DataAccessLayer
             {   
                 // Creating Connection  
                 // writing sql query  
-                SqlCommand cm = new SqlCommand($"INSERT INTO {tableName}(description,amount,type,userId) VALUES ('{data.Description}','{data.Amount}','{data.Type}','{data.UserId}')", conn);
+                MySqlCommand cm = new MySqlCommand($"INSERT INTO {tableName}(description,amount,type,userId) VALUES ('{data.Description}','{data.Amount}','{data.Type}','{data.UserId}')", conn);
 
                 // Opening Connection  
                 conn.Open();
@@ -70,10 +72,10 @@ namespace server.DataAccessLayer
         {
             try
             {
-                SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM {tableName} WHERE userId = '{id}'",conn);
+                MySqlCommand sqlCommand = new MySqlCommand($"SELECT * FROM {tableName} WHERE userId = '{id}'",conn);
                 conn.Open();
 
-                SqlDataReader reader = sqlCommand.ExecuteReader();
+                MySqlDataReader reader = sqlCommand.ExecuteReader();
 
                 List<BudgetData> list = new List<BudgetData>();
 
@@ -105,12 +107,12 @@ namespace server.DataAccessLayer
         {
             try
             {
-                SqlCommand cm = new SqlCommand($"SELECT id,userId,description, amount, type FROM {tableName}", conn);
+                MySqlCommand cm = new MySqlCommand($"SELECT id,userId,description, amount, type FROM {tableName}", conn);
                 conn.Open();
 
                 cm.ExecuteNonQuery();
 
-                SqlDataReader sqlDataReader = cm.ExecuteReader();
+                MySqlDataReader sqlDataReader = cm.ExecuteReader();
 
                 List<BudgetData> list = new List<BudgetData>();
 
@@ -144,7 +146,7 @@ namespace server.DataAccessLayer
         {
             try
             {
-                SqlCommand cm = new SqlCommand($"UPDATE {tableName} SET description = {data.Description}, amount = {data.Amount}, type = {data.Description} WHERE id = {id}",conn);
+                MySqlCommand cm = new MySqlCommand($"UPDATE {tableName} SET description = {data.Description}, amount = {data.Amount}, type = {data.Description} WHERE id = {id}",conn);
                 conn.Open();
             }
             catch (Exception)
@@ -162,7 +164,7 @@ namespace server.DataAccessLayer
         {
             try
             {
-                SqlCommand cm = new SqlCommand($"DELETE FROM {tableName} WHERE id = {id}", conn);
+                MySqlCommand cm = new MySqlCommand($"DELETE FROM {tableName} WHERE id = {id}", conn);
 
                 conn.Open();
 
