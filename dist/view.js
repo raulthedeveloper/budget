@@ -37,6 +37,10 @@ export class View {
         }
         this.clearField();
     }
+    clearColumns() {
+        View.expenseColumn.innerHTML = "";
+        View.incomeColumn.innerHTML = "";
+    }
     addToExpense(data) {
         //add to expense income
         if (data.length > 0) {
@@ -63,3 +67,5 @@ View.password_login = document.getElementById("password_login");
 View.password_register = document.getElementById("password_register");
 View.submit_user_register = document.getElementById('submit_user_register');
 View.submit_user_login = document.getElementById('submit_user_login');
+View.closeSignInBtn = document.getElementById("close-signin");
+View.closeRegisterBtn = document.getElementById("close-signup");

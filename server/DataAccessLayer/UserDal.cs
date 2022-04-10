@@ -141,6 +141,36 @@ namespace server.DataAccessLayer
             }
 
         }
+        public int GetUserId(string email, string password)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand($"SELECT id FROM {tableName} WHERE email='{email}' AND password='{password}'", conn);
+                conn.Open();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                int userId = 0;
+                while (reader.Read())
+                {
+                    userId = (int) reader["id"];
+                   
+                }
+
+                return userId;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+        }
 
         public Users GetUser(int Id)
         {

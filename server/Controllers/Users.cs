@@ -28,6 +28,13 @@ namespace server.Controllers
             return db.GetUsers();
         }
 
+        [HttpPost("get_user_id")]
+        public IActionResult GetUserId([FromBody] Users user)
+        {
+            return Ok(db.GetUserId(user.Email,user.Password));
+        }
+        
+
         // GET api/<Users>/5
         [HttpGet("{id}")]
         public Users Get(int id)

@@ -3,25 +3,26 @@
 
 export class View{
 
-static mainDisplayDom = document.getElementById('main-display') as HTMLElement;  
-static displayIncomeTotal = document.getElementById('income-display') as HTMLElement;
-static displayExpenseTotal = document.getElementById('expense-display') as HTMLElement;
-static expenseColumn = document.getElementById('expense-column') as HTMLElement;
-static incomeColumn = document.getElementById('income-column') as HTMLElement;
-static descriptionDom = document.getElementById('description') as HTMLInputElement;
-static amountDom = document.getElementById('amount') as HTMLInputElement;
-static type = document.getElementById('type') as HTMLInputElement;
-static submit = document.getElementById('submit') as HTMLButtonElement ;
+public static mainDisplayDom = document.getElementById('main-display') as HTMLElement;  
+public static displayIncomeTotal = document.getElementById('income-display') as HTMLElement;
+public static displayExpenseTotal = document.getElementById('expense-display') as HTMLElement;
+public static expenseColumn = document.getElementById('expense-column') as HTMLElement;
+public static incomeColumn = document.getElementById('income-column') as HTMLElement;
+public static descriptionDom = document.getElementById('description') as HTMLInputElement;
+public static amountDom = document.getElementById('amount') as HTMLInputElement;
+public static type = document.getElementById('type') as HTMLInputElement;
+public static submit = document.getElementById('submit') as HTMLButtonElement ;
 
-static email_login = document.getElementById('email_login') as HTMLFormElement
-static email_register = document.getElementById('email_register') as HTMLFormElement
+public static email_login = document.getElementById('email_login') as HTMLFormElement
+public static email_register = document.getElementById('email_register') as HTMLFormElement
 
-static password_login = document.getElementById("password_login") as HTMLFormElement
-static password_register = document.getElementById("password_register") as HTMLFormElement
+public static password_login = document.getElementById("password_login") as HTMLFormElement
+public static password_register = document.getElementById("password_register") as HTMLFormElement
 
-static submit_user_register = document.getElementById('submit_user_register') as HTMLFormElement;
-static submit_user_login = document.getElementById('submit_user_login') as HTMLFormElement;
-  
+public static submit_user_register = document.getElementById('submit_user_register') as HTMLFormElement;
+public static submit_user_login = document.getElementById('submit_user_login') as HTMLFormElement;
+public static closeSignInBtn = document.getElementById("close-signin") as HTMLButtonElement;
+public static closeRegisterBtn = document.getElementById("close-signup") as HTMLButtonElement;
 
 
   setDisplayValue(mainDisplay:number,incomeTotal:number,expenseTotal:number):void
@@ -74,6 +75,11 @@ static submit_user_login = document.getElementById('submit_user_login') as HTMLF
     }
     
     this.clearField()
+  }
+
+  clearColumns():void{
+    View.expenseColumn.innerHTML = "";
+    View.incomeColumn.innerHTML = "";
   }
 
   addToExpense(data):void{

@@ -1,12 +1,6 @@
 import { BudgetItem } from "./dataModels.js";
-import { DataAccessLayer } from "./DAL/BudgetDal.js";
 export class Model {
     constructor(total, expenseTotal, incomeTotal) {
-        // User getters and setters to access data
-        // Takes values from controller and gives it to income and expense object
-        this.userId = "1";
-        this.apiUrl = `https://localhost:7242/api/Budget/get_user_items/${this.userId}`;
-        this.dal = new DataAccessLayer(this.apiUrl);
         // Creates Unique ID for object
         this.uuid = () => "xxxxxxxx-4xxx-yxxx".replace(/[xy]/g, function (c) {
             var r = (Math.random() * 16) | 0, v = c == "x" ? r : (r & 0x3) | 0x8;
@@ -36,6 +30,13 @@ export class Model {
             incomeTotal: this.incomeTotal
         };
     }
+    clearAllData() {
+        this.total = 0;
+        this.allExp = [];
+        this.allinc = [];
+        this.expenseTotal = 0;
+        this.incomeTotal = 0;
+    }
     calculateTotals() {
         this.allExp.forEach(e => {
             this.setTotals(e.amount, e.type);
@@ -53,7 +54,6 @@ export class Model {
     saveDataToArr(date, desc, amount, type) {
         // let budgetItem = new BudgetItem(this.uuid(),new Date().toLocaleDateString("en-US"),desc,amount,type)
         let budgetItem = new BudgetItem(null, date, desc, amount, type);
-        console.log(budgetItem);
         // Push budgetItem to array
         if (type == 'expense') {
             this.allExp.push(budgetItem);

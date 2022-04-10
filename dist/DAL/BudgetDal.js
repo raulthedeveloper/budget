@@ -2,10 +2,11 @@ export class DataAccessLayer {
     constructor(apiUrl) {
         this.apiUrl = apiUrl;
     }
-    get() {
-        return fetch(this.apiUrl)
+    get(apiUrl) {
+        return fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
+            console.log(data);
             return data;
         })
             .catch(err => console.error(err));

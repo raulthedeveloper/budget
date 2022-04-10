@@ -8,9 +8,7 @@ import { DataAccessLayer } from "./DAL/BudgetDal.js";
 export class Model implements modelInterface{
     // User getters and setters to access data
     // Takes values from controller and gives it to income and expense object
-    userId:string = "1";
-    apiUrl:string = `https://localhost:7242/api/Budget/get_user_items/${this.userId}`
-    dal: DataAccessLayer = new DataAccessLayer(this.apiUrl);
+    static userId:string;
     allExp: BudgetDataInterface[];
     allinc: BudgetDataInterface[];
     total: number;
@@ -67,6 +65,14 @@ export class Model implements modelInterface{
         }
     }
 
+    clearAllData():void{
+        this.total = 0;
+        this.allExp = [];
+        this.allinc = [];
+        this.expenseTotal = 0;
+        this.incomeTotal = 0;
+    }
+
     calculateTotals():void{
        
         this.allExp.forEach(e =>{
@@ -97,7 +103,6 @@ export class Model implements modelInterface{
         // let budgetItem = new BudgetItem(this.uuid(),new Date().toLocaleDateString("en-US"),desc,amount,type)
         let budgetItem = new BudgetItem(null,date,desc,amount,type)
 
-        console.log(budgetItem)
         // Push budgetItem to array
         if(type == 'expense')
         {

@@ -5,15 +5,16 @@ import { budgetInterface } from "../Interfaces/Interfaces"
 
 export class DataAccessLayer {
     apiUrl:string
+
     constructor(apiUrl:string){
       this.apiUrl = apiUrl;
     }
 
-    get():Promise<BudgetItem[]>{
-     return fetch(this.apiUrl)
+    get(apiUrl):Promise<BudgetItem[]>{
+     return fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
-
+            console.log(data)
             return data;
 
           })

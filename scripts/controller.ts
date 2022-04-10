@@ -10,7 +10,7 @@ import {
 import { BudgetItem } from './dataModels.js';
 
 import {UserForm} from "./userForm.js";
-
+import ApiEndPoints from './DAL/ApiEndPoints.js';
 
 
 
@@ -20,14 +20,19 @@ export class Controller {
 
   model: Model = new Model(0, 0, 0);
   view: View = new View();
-  userId:string = "3"
-  apiUrl:string = `https://localhost:7242/api/Budget/get_user_items/${this.userId}`
+  userId:string;
+  apiUrl:string = ApiEndPoints.getUserItems;
   dal: DataAccessLayer = new DataAccessLayer(this.apiUrl);
   userForm: UserForm = new UserForm(View.email_register,View.password_register,View.email_login,View.password_login);
 
 
- async loadFromDb() {
-  (await this.dal.get()).forEach(e => {
+ async loadFromDb(id:string) {
+  this.model.clearAllData();
+
+
+  let dal:DataAccessLayer = new DataAccessLayer(this.apiUrl);
+
+  (await dal.get(this.apiUrl+id)).forEach(e => {
     this.model.saveDataToArr(e.date,e.description, e.amount, e.type)
     this.view.addToIncome(this.model.getAllInc())
     this.view.addToExpense(this.model.getAllExp())
@@ -43,8 +48,7 @@ export class Controller {
   //create submit event listener
 
   init(): void {
-    this.loadFromDb();
-
+   
     // Get calculation inputs and put into total
 
     this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
@@ -93,8 +97,11 @@ export class Controller {
     View.submit_user_login.addEventListener("click",(e) =>{
       e.preventDefault();
       this.userForm.signUserIn();
-      console.log("submit works on login");
+
     })
+
+
 
   }
 }
+

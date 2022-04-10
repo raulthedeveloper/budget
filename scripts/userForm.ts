@@ -1,5 +1,9 @@
 import { LoginForm,RegisterForm } from "./dataModels.js";
 import { UserDal } from "./DAL/UserDal.js";
+import  ApiEndpoints  from "./DAL/ApiEndPoints.js";
+import { View } from "./view.js";
+import { DataAccessLayer } from "./DAL/BudgetDal.js";
+import { Model } from "./model.js";
 
 
 export class UserForm {
@@ -8,7 +12,10 @@ export class UserForm {
     registerPassword:HTMLFormElement;
     loginEmail:HTMLFormElement;
     loginPassword:HTMLFormElement;
-    userDal = new UserDal("https://localhost:7242/api/Users");
+    userDal = new UserDal(ApiEndpoints.users);
+    view:View = new View();
+    model:Model = new Model(0,0,0)
+    userId:string;
     
 
     constructor(registerEmail:HTMLFormElement,registerPassword:HTMLFormElement,loginEmail:HTMLFormElement,loginPassword:HTMLFormElement)
@@ -19,12 +26,62 @@ export class UserForm {
         this.loginPassword = loginPassword
     }
 
+    
+
+    async loadFromDb(id:string) {
+ 
+
+        let dal:DataAccessLayer = new DataAccessLayer(ApiEndpoints.budget);
+        let url = ApiEndpoints.getUserItems + id;
+
+        (await dal.get(url)).forEach(e => {
+          this.model.saveDataToArr(e.date,e.description, e.amount, e.type)
+          this.view.addToIncome(this.model.getAllInc())
+          this.view.addToExpense(this.model.getAllExp())
+          
+      
+        })
+
+
+        this.model.calculateTotals()
+
+    }
+
     registerUser():void{
         //Get user input from view
         this.userDal.RegisterUser(new RegisterForm(this.registerEmail.value,this.registerPassword.value));
+        
+
+        
+
+        // Login all the user after register
+        // this.loginEmail.innerHTML = this.registerEmail.value;
+        // this.loginPassword.innerHTML = this.registerPassword.value;
+
+        // this.signUserIn()
+
+
+        // console.log(this.userId)
+
+        this.view.clearColumns();
+        this.model.clearAllData();
+
+        View.closeRegisterBtn.click();
     }
 
-    signUserIn():void{
-        this.userDal.LoginUser(new LoginForm(this.loginEmail.value,this.loginPassword.value));
+    async signUserIn(){
+        //Async call to data base and then returned Id is set to JSON
+        this.userId = JSON.stringify(await (this.userDal.LoginUser(new LoginForm(this.loginEmail.value,this.loginPassword.value)))).toString();
+        this.view.clearColumns();
+        this.model.clearAllData();
+
+        this.loadFromDb(this.userId);
+
+        this.loginEmail.value = null;
+        this.loginPassword.value = null;
+
+        // Closes modal after submit
+        View.closeSignInBtn.click();
+
     }
 }

@@ -7,13 +7,12 @@ import { LoginForm, RegisterForm } from "../dataModels";
 export class UserDal{
     apiUrl:string;
 
-    constructor(apiUrl){
+    constructor(apiUrl:string){
         this.apiUrl = apiUrl;
     }
 
     RegisterUser(data:RegisterForm):void{
         //Get data from form to pass to api
-        console.log(data);
 
         fetch(this.apiUrl, {
             method: 'POST',
@@ -28,20 +27,25 @@ export class UserDal{
             
 } 
 
-LoginUser(data:LoginForm):void{
+LoginUser(data:LoginForm):Promise<number>{
     //Get data from form to pass to api
-    console.log(data);
 
-    // fetch(`${this.apiUrl}/Authenticate`, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //         'email': data.email,
-    //         'password':data.password
+    return fetch(`https://localhost:7242/api/Users/get_user_id`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            email: data.email,
+            password:data.password
 
-    //     }),
-    //     })
-    //     .then((res) => res.json())
+        }),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            return data;
+        })
+        .catch(err => console.error(err));
+
         
 } 
+    
 }
