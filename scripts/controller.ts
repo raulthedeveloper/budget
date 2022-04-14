@@ -58,6 +58,46 @@ export class Controller {
     appState.expenseTotal = this.model.expenseTotal;
   }
 
+  async postToDb(){
+    let amount = parseInt(View.amountDom.value);
+
+  //Waits for database to post
+    await this.dal.post(new BudgetItem(null,this.model.userId,null,View.descriptionDom.value, amount, View.type.value));
+
+    //After waiting for database grabs the last item with data assigned from Database
+    this.getLastItem();
+    
+  }
+
+  getLastItem(){
+    let amount = parseInt(View.amountDom.value);
+
+    this.dal.getLastItem(this.model.userId).then((e) => {
+
+
+      // Pass values to model to be created into a object and saved in array
+         this.model.saveDataToArr(e.id,e.userId,e.date,e.description, e.amount, e.type);
+
+         //Totals are set to be used in the display and for other calculations
+         this.model.setTotals(amount, View.type.value);
+
+         //The display is set with all of the values
+         this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
+
+         //Income array is passed to the Income Column
+         this.view.addToIncome(this.model.getAllInc())
+
+         //Expense array is passed to the Expense Column
+         this.view.addToExpense(this.model.getAllExp())
+
+         this.syncStateWithModel()
+
+         console.log(appState)
+
+   });
+  }
+
+
 
   //create submit event listener
 
@@ -67,42 +107,19 @@ export class Controller {
 
     this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
 
-    console.log(appState)
     // Submit button
     View.submit.addEventListener("click", () => {
 
       this.syncModelWithState()
-      console.log(appState)
     
       View.submit.disabled = true
 
+      //Saves userId from form to model to get synced up with AppState
       this.model.userId = parseInt(this.userForm.getUserId())
 
-
-      let amount = parseInt(View.amountDom.value);
-
-
-      //User Id is passed to the api endpoint along with data from the input form
-      this.dal.post(new BudgetItem(null,this.model.userId,null,View.descriptionDom.value, amount, View.type.value));
-
-      
-
-      // Pass values to model to be created into a object and saved in array
-      this.model.saveDataToArr(this.model.userId,null,View.descriptionDom.value, amount, View.type.value);
-
-      //Totals are set to be used in the display and for other calculations
-      this.model.setTotals(amount, View.type.value);
-
-      //The display is set with all of the values
-      this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
-
-      //Income array is passed to the Income Column
-      this.view.addToIncome(this.model.getAllInc())
-
-      //Expense array is passed to the Expense Column
-      this.view.addToExpense(this.model.getAllExp())
-
-      this.syncStateWithModel()
+      //Post to database and then gets it from database so it will have an Id and date assigned to it
+     this.postToDb();
+   
     });
 
     View.descriptionDom.addEventListener("keyup", function() {

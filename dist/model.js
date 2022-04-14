@@ -23,7 +23,7 @@ export class Model {
             this.total -= value;
         }
     }
-    delete(index) {
+    delete(id) {
         //Will delete from array and subtract from total
     }
     getTotals() {
@@ -54,9 +54,9 @@ export class Model {
     getAllInc() {
         return this.allinc;
     }
-    saveDataToArr(userId, date, desc, amount, type) {
+    saveDataToArr(id, userId, date, desc, amount, type) {
         // let budgetItem = new BudgetItem(this.uuid(),new Date().toLocaleDateString("en-US"),desc,amount,type)
-        let budgetItem = new BudgetItem(null, userId, date, desc, amount, type);
+        let budgetItem = new BudgetItem(id, userId, date, desc, amount, type);
         // Push budgetItem to array
         if (type == 'expense') {
             this.allExp.push(budgetItem);

@@ -43,7 +43,8 @@ export class UserForm {
         //Pass the id to the dal
 
         (await dal.get(url)).forEach(e => {
-          this.model.saveDataToArr(this.userId,e.date,e.description, e.amount, e.type)
+            console.log(e)
+          this.model.saveDataToArr(e.id,this.userId,e.date,e.description, e.amount, e.type)
           this.view.addToIncome(this.model.getAllInc())
           this.view.addToExpense(this.model.getAllExp())
 

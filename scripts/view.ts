@@ -87,7 +87,7 @@ public static closeRegisterBtn = document.getElementById("close-signup") as HTML
     if(data.length > 0){
       View.expenseColumn.innerHTML = ""
       data.forEach(e => {
-        View.expenseColumn.innerHTML += `<div class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.date}</span><span class="delete-button">X</span></div><div class="card-body"><ul class="list-group"><li class="list-group-item">${e.description}</li><li class="list-group-item list-group-item-danger">$<span>${e.amount}</span></li></ul> </div></div>`
+        View.expenseColumn.innerHTML += `<div class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.id}</span><span class="delete-button">X</span></div><div class="card-body"><ul class="list-group"><li class="list-group-item">${e.description}</li><li class="list-group-item list-group-item-danger">$<span>${e.amount}</span></li></ul> </div></div>`
       });
       
     }

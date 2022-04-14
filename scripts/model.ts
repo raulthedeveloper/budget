@@ -47,8 +47,9 @@ export class Model implements modelInterface{
 
     }
 
-    delete(index:number){
+    delete(id:number){
         //Will delete from array and subtract from total
+        
     }
 
    
@@ -101,12 +102,12 @@ export class Model implements modelInterface{
 
     
 
-    saveDataToArr(userId,date:string,desc:string, amount:number, type:string):void
+    saveDataToArr(id,userId,date:string,desc:string, amount:number, type:string):void
     {
         
 
         // let budgetItem = new BudgetItem(this.uuid(),new Date().toLocaleDateString("en-US"),desc,amount,type)
-        let budgetItem = new BudgetItem(null,userId,date,desc,amount,type)
+        let budgetItem = new BudgetItem(id,userId,date,desc,amount,type)
 
         // Push budgetItem to array
         if(type == 'expense')

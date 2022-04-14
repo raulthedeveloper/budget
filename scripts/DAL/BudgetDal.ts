@@ -24,16 +24,28 @@ export class DataAccessLayer {
           .catch(err => console.error(err));
     }
 
+    getLastItem(id:number):Promise<BudgetItem>{
+      console.log("getLastItem ran")
+      return fetch(ApiEndPoints.getLastItem+id)
+          .then(response => response.json())
+          .then(data => {
+            return data;
+
+          })
+          .catch(err => console.error(err))
+    }
+
     put(id:number,item:BudgetItem):void{
       console.log(`id:${id} ${item}`)
     }
 
-    post(item:BudgetItem):void{
+    async post(item:BudgetItem){
       // id and date is removed from objects because database will assign values
       delete item.id
       delete item.date
+      console.log("Post ran")
 
-      fetch(ApiEndPoints.budget, {
+     await fetch(ApiEndPoints.budget, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
