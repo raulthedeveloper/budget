@@ -4,6 +4,7 @@ import  ApiEndpoints  from "./DAL/ApiEndPoints.js";
 import { View } from "./view.js";
 import { DataAccessLayer } from "./DAL/BudgetDal.js";
 import { Model } from "./model.js";
+import { appState } from "./Store/AppState.js";
 
 
 export class UserForm {
@@ -26,24 +27,45 @@ export class UserForm {
         this.loginPassword = loginPassword
     }
 
-    
+    getUserId():string{
+        return this.userId;
+    }
 
     async loadFromDb(id:string) {
  
 
-        let dal:DataAccessLayer = new DataAccessLayer(ApiEndpoints.budget);
+        let dal:DataAccessLayer = new DataAccessLayer(ApiEndpoints.budget,id);
         let url = ApiEndpoints.getUserItems + id;
 
+        //Saves id from database to object property to be used for future posts and calls
+        this.userId = id;
+
+        //Pass the id to the dal
+
         (await dal.get(url)).forEach(e => {
-          this.model.saveDataToArr(e.date,e.description, e.amount, e.type)
+          this.model.saveDataToArr(this.userId,e.date,e.description, e.amount, e.type)
           this.view.addToIncome(this.model.getAllInc())
           this.view.addToExpense(this.model.getAllExp())
+
           
-      
+          
+        this.model.setTotals(e.amount,e.type)
+          
         })
 
 
-        this.model.calculateTotals()
+          appState.userId = parseInt(id);
+          appState.allExp = this.model.getAllExp();
+          appState.allInc = this.model.getAllInc();
+          appState.total = this.model.getTotals().total;
+          appState.expenseTotal = this.model.getTotals().expenseTotal;
+          appState.incomeTotal = this.model.getTotals().incomeTotal;
+
+        this.view.setDisplayValue(this.model.total,this.model.incomeTotal,this.model.expenseTotal)
+        
+       
+        
+    
 
     }
 

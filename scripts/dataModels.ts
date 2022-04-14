@@ -21,13 +21,15 @@ export class RegisterForm extends LoginForm{
 
 export class BudgetItem implements BudgetDataInterface {
     id:number | string | null;
+    userId: number;
     date:string;
     description:string;
     amount:number;
     type:string;
 
-    constructor(id:string,date:string,desc:string,amount:number,type:string){
+    constructor(id:string,userId:number,date:string,desc:string,amount:number,type:string){
         this.id = id;
+        this.userId = userId;
         this.date = date;
         this.description = desc;
         this.amount = amount;

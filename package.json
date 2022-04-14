@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc ./scripts/main.ts --outDir ./dist --target es6 ",
-    "watch": "tsc ./scripts/main.ts --outDir ./dist --watch --target es6"
+    "watch": "tsc ./scripts/main.ts --outDir ./dist --watch --target es6",
+    "server": "node Server/main.js",
+    "server-dev": "nodemon Server/main.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,10 @@
   "devDependencies": {
     "@types/jquery": "^3.5.14",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.5",
+    "nodemon": "^2.0.15"
   }
 }

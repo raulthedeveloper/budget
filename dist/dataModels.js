@@ -7,8 +7,9 @@ export class LoginForm {
 export class RegisterForm extends LoginForm {
 }
 export class BudgetItem {
-    constructor(id, date, desc, amount, type) {
+    constructor(id, userId, date, desc, amount, type) {
         this.id = id;
+        this.userId = userId;
         this.date = date;
         this.description = desc;
         this.amount = amount;

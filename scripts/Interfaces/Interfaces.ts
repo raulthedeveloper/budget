@@ -14,6 +14,7 @@ export interface BudgetDataInterface{
 
 export interface budgetInterface 
 {
+    userId:number,
     description: string,
     type:string,
     value:number,        

@@ -51,9 +51,9 @@ export class Model {
     getAllInc() {
         return this.allinc;
     }
-    saveDataToArr(date, desc, amount, type) {
+    saveDataToArr(userId, date, desc, amount, type) {
         // let budgetItem = new BudgetItem(this.uuid(),new Date().toLocaleDateString("en-US"),desc,amount,type)
-        let budgetItem = new BudgetItem(null, date, desc, amount, type);
+        let budgetItem = new BudgetItem(null, userId, date, desc, amount, type);
         // Push budgetItem to array
         if (type == 'expense') {
             this.allExp.push(budgetItem);

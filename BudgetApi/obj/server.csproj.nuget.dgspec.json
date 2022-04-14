@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/raulrodriguez/Desktop/Web Projects/budget/server/server.csproj": {}
+    "/Users/raulrodriguez/Desktop/Web Projects/budget/BudgetApi/server.csproj": {}
   },
   "projects": {
-    "/Users/raulrodriguez/Desktop/Web Projects/budget/server/server.csproj": {
+    "/Users/raulrodriguez/Desktop/Web Projects/budget/BudgetApi/server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/raulrodriguez/Desktop/Web Projects/budget/server/server.csproj",
+        "projectUniqueName": "/Users/raulrodriguez/Desktop/Web Projects/budget/BudgetApi/server.csproj",
         "projectName": "server",
-        "projectPath": "/Users/raulrodriguez/Desktop/Web Projects/budget/server/server.csproj",
+        "projectPath": "/Users/raulrodriguez/Desktop/Web Projects/budget/BudgetApi/server.csproj",
         "packagesPath": "/Users/raulrodriguez/.nuget/packages/",
-        "outputPath": "/Users/raulrodriguez/Desktop/Web Projects/budget/server/obj/",
+        "outputPath": "/Users/raulrodriguez/Desktop/Web Projects/budget/BudgetApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/raulrodriguez/.nuget/NuGet/NuGet.Config"

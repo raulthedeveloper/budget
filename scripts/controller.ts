@@ -11,6 +11,7 @@ import { BudgetItem } from './dataModels.js';
 
 import {UserForm} from "./userForm.js";
 import ApiEndPoints from './DAL/ApiEndPoints.js';
+import { appState } from './Store/AppState.js';
 
 
 
@@ -20,30 +21,43 @@ export class Controller {
 
   model: Model = new Model(0, 0, 0);
   view: View = new View();
-  userId:string;
-  apiUrl:string = ApiEndPoints.getUserItems;
-  dal: DataAccessLayer = new DataAccessLayer(this.apiUrl);
+  userId:number;
+  apiUrlBudget:string = ApiEndPoints.budget;
+  dal: DataAccessLayer = new DataAccessLayer(null,this.apiUrlBudget);
   userForm: UserForm = new UserForm(View.email_register,View.password_register,View.email_login,View.password_login);
 
+ 
 
- async loadFromDb(id:string) {
-  this.model.clearAllData();
-
-
-  let dal:DataAccessLayer = new DataAccessLayer(this.apiUrl);
-
-  (await dal.get(this.apiUrl+id)).forEach(e => {
-    this.model.saveDataToArr(e.date,e.description, e.amount, e.type)
-    this.view.addToIncome(this.model.getAllInc())
-    this.view.addToExpense(this.model.getAllExp())
-    
-
-  })
-    
-
-    this.model.calculateTotals()
+  guestMode():void{
+    // Will contain the methods that will not persist to database
 
   }
+
+
+  userAccountMode():void{
+    // Will contain methods that will handle user account
+  }
+
+  syncModelWithState()
+  {
+    this.model.userId = appState.userId
+    this.model.allExp = appState.allExp;
+    this.model.allinc = appState.allInc;
+    this.model.total = appState.total;
+    this.model.incomeTotal = appState.incomeTotal;
+    this.model.expenseTotal = appState.expenseTotal;
+  }
+
+  syncStateWithModel()
+  {
+    appState.userId  = this.model.userId
+    appState.allExp = this.model.allExp;
+    appState.allInc = this.model.allinc;
+    appState.total = this.model.total;
+    appState.incomeTotal = this.model.incomeTotal;
+    appState.expenseTotal = this.model.expenseTotal;
+  }
+
 
   //create submit event listener
 
@@ -53,25 +67,42 @@ export class Controller {
 
     this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
 
+    console.log(appState)
     // Submit button
     View.submit.addEventListener("click", () => {
 
+      this.syncModelWithState()
+      console.log(appState)
+    
       View.submit.disabled = true
+
+      this.model.userId = parseInt(this.userForm.getUserId())
+
 
       let amount = parseInt(View.amountDom.value);
 
-      this.dal.post(new BudgetItem(null,null,View.descriptionDom.value, amount, View.type.value))
-      // Pass values to model to be created into a object and saved in array
-      this.model.saveDataToArr(null,View.descriptionDom.value, amount, View.type.value);
 
+      //User Id is passed to the api endpoint along with data from the input form
+      this.dal.post(new BudgetItem(null,this.model.userId,null,View.descriptionDom.value, amount, View.type.value));
+
+      
+
+      // Pass values to model to be created into a object and saved in array
+      this.model.saveDataToArr(this.model.userId,null,View.descriptionDom.value, amount, View.type.value);
+
+      //Totals are set to be used in the display and for other calculations
       this.model.setTotals(amount, View.type.value);
 
+      //The display is set with all of the values
       this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
 
+      //Income array is passed to the Income Column
       this.view.addToIncome(this.model.getAllInc())
+
+      //Expense array is passed to the Expense Column
       this.view.addToExpense(this.model.getAllExp())
 
-
+      this.syncStateWithModel()
     });
 
     View.descriptionDom.addEventListener("keyup", function() {
@@ -97,6 +128,9 @@ export class Controller {
     View.submit_user_login.addEventListener("click",(e) =>{
       e.preventDefault();
       this.userForm.signUserIn();
+
+      
+      //Capture userId
 
     })
 

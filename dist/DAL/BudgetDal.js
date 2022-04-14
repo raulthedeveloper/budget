@@ -1,6 +1,8 @@
+import ApiEndPoints from "./ApiEndPoints.js";
 export class DataAccessLayer {
-    constructor(apiUrl) {
+    constructor(apiUrl, userId) {
         this.apiUrl = apiUrl;
+        this.userId = this.userId;
     }
     get(apiUrl) {
         return fetch(apiUrl)
@@ -18,7 +20,17 @@ export class DataAccessLayer {
         // id and date is removed from objects because database will assign values
         delete item.id;
         delete item.date;
-        console.log(item);
+        fetch(ApiEndPoints.budget, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'userId': item.userId,
+                'description': item.description,
+                'amount': item.amount,
+                'type': item.type
+            }),
+        })
+            .then((res) => res.json());
     }
     delete(id, item) {
         console.log(`id:${id} ${item}`);

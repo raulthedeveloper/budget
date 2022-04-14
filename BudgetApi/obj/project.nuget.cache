@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "92lnFwaFhaR5zpytGNhiKB6oj62tX2jCboZBtJhmxR621tYpxZp7WT2sEwoHlXdzgMIYKCe1+ulNHgCllDa+9Q==",
+  "dgSpecHash": "bjp6uRYxTqp4C69IP3+5nPiMhlw3joTIp6aKNDa68EOPH5dRw+D+vLTf1/H43lruiApIzyheTAg/u6fXe5wKjg==",
   "success": true,
-  "projectFilePath": "/Users/raulrodriguez/Desktop/Web Projects/budget/server/server.csproj",
+  "projectFilePath": "/Users/raulrodriguez/Desktop/Web Projects/budget/BudgetApi/server.csproj",
   "expectedPackageFiles": [
     "/Users/raulrodriguez/.nuget/packages/microsoft.aspnetcore.authentication/2.2.0/microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "/Users/raulrodriguez/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.2.0/microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

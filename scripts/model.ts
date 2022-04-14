@@ -8,7 +8,7 @@ import { DataAccessLayer } from "./DAL/BudgetDal.js";
 export class Model implements modelInterface{
     // User getters and setters to access data
     // Takes values from controller and gives it to income and expense object
-    static userId:string;
+    userId:number;
     allExp: BudgetDataInterface[];
     allinc: BudgetDataInterface[];
     total: number;
@@ -42,7 +42,8 @@ export class Model implements modelInterface{
             this.expenseTotal += value;
             this.total -= value;
         }
-   
+
+        
 
     }
 
@@ -55,7 +56,7 @@ export class Model implements modelInterface{
         return v.toString(16);
     });
 
-    getTotals():object
+    getTotals()
     {
         return {
             total:this.total,
@@ -96,12 +97,12 @@ export class Model implements modelInterface{
 
     
 
-    saveDataToArr(date:string,desc:string, amount:number, type:string):void
+    saveDataToArr(userId,date:string,desc:string, amount:number, type:string):void
     {
         
 
         // let budgetItem = new BudgetItem(this.uuid(),new Date().toLocaleDateString("en-US"),desc,amount,type)
-        let budgetItem = new BudgetItem(null,date,desc,amount,type)
+        let budgetItem = new BudgetItem(null,userId,date,desc,amount,type)
 
         // Push budgetItem to array
         if(type == 'expense')
