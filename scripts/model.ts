@@ -47,6 +47,10 @@ export class Model implements modelInterface{
 
     }
 
+    delete(index:number){
+        //Will delete from array and subtract from total
+    }
+
    
     // Creates Unique ID for object
     uuid = () =>

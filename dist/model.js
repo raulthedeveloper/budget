@@ -23,6 +23,9 @@ export class Model {
             this.total -= value;
         }
     }
+    delete(index) {
+        //Will delete from array and subtract from total
+    }
     getTotals() {
         return {
             total: this.total,
