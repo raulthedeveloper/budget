@@ -68,6 +68,7 @@ export class Controller {
             this.view.addToExpense(this.model.getAllExp());
             this.syncStateWithModel();
             console.log(appState);
+            this.view.deleteEventListeners();
         });
     }
     //create submit event listener

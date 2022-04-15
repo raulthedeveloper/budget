@@ -31,11 +31,25 @@ export class View {
         if (data.length > 0) {
             View.incomeColumn.innerHTML = "";
             data.forEach(e => {
-                View.incomeColumn.innerHTML += `<div class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.date}</span><span  class="delete-button">X</span></div>
+                View.incomeColumn.innerHTML += `<div id="${e.id}" class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.id}</span><span id="inc-${e.id}"  class="delete-button">X</span></div>
         <div class="card-body"><ul class="list-group"><li class="list-group-item">${e.description}</li><li class="list-group-item list-group-item-success">$<span>${e.amount}</span></li></ul> </div></div>`;
             });
         }
         this.clearField();
+    }
+    deleteEventListeners() {
+        for (let index = 0; index < View.expenseColumn.children.length; index++) {
+            let id = View.expenseColumn.children[index].children[0].children[1].id;
+            document.getElementById(id).addEventListener("click", () => {
+                console.log("this will delete expense " + id);
+            });
+        }
+        for (let index = 0; index < View.incomeColumn.children.length; index++) {
+            let id = View.incomeColumn.children[index].children[0].children[1].id;
+            document.getElementById(id).addEventListener("click", () => {
+                console.log("this will delete income " + id);
+            });
+        }
     }
     clearColumns() {
         View.expenseColumn.innerHTML = "";
@@ -46,7 +60,7 @@ export class View {
         if (data.length > 0) {
             View.expenseColumn.innerHTML = "";
             data.forEach(e => {
-                View.expenseColumn.innerHTML += `<div class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.id}</span><span class="delete-button">X</span></div><div class="card-body"><ul class="list-group"><li class="list-group-item">${e.description}</li><li class="list-group-item list-group-item-danger">$<span>${e.amount}</span></li></ul> </div></div>`;
+                View.expenseColumn.innerHTML += `<div id="${e.id}" class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.id}</span><span id="exp-${e.id}" class="delete-button">X</span></div><div class="card-body"><ul class="list-group"><li class="list-group-item">${e.description}</li><li class="list-group-item list-group-item-danger">$<span>${e.amount}</span></li></ul> </div></div>`;
             });
         }
         this.clearField();

@@ -17,7 +17,6 @@ export class DataAccessLayer {
      return fetch(apiUrl)
           .then(response => response.json())
           .then(data => {
-            console.log(data)
             return data;
 
           })
@@ -25,7 +24,6 @@ export class DataAccessLayer {
     }
 
     getLastItem(id:number):Promise<BudgetItem>{
-      console.log("getLastItem ran")
       return fetch(ApiEndPoints.getLastItem+id)
           .then(response => response.json())
           .then(data => {

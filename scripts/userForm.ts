@@ -43,7 +43,6 @@ export class UserForm {
         //Pass the id to the dal
 
         (await dal.get(url)).forEach(e => {
-            console.log(e)
           this.model.saveDataToArr(e.id,this.userId,e.date,e.description, e.amount, e.type)
           this.view.addToIncome(this.model.getAllInc())
           this.view.addToExpense(this.model.getAllExp())
@@ -51,6 +50,7 @@ export class UserForm {
           
           
         this.model.setTotals(e.amount,e.type)
+
           
         })
 
@@ -65,7 +65,8 @@ export class UserForm {
         this.view.setDisplayValue(this.model.total,this.model.incomeTotal,this.model.expenseTotal)
         
        
-        
+        this.view.deleteEventListeners();
+
     
 
     }

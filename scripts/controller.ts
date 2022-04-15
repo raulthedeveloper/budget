@@ -66,6 +66,8 @@ export class Controller {
 
     //After waiting for database grabs the last item with data assigned from Database
     this.getLastItem();
+
+    
     
   }
 
@@ -94,6 +96,8 @@ export class Controller {
 
          console.log(appState)
 
+         this.view.deleteEventListeners();
+
    });
   }
 
@@ -119,6 +123,8 @@ export class Controller {
 
       //Post to database and then gets it from database so it will have an Id and date assigned to it
      this.postToDb();
+
+     
    
     });
 
@@ -150,6 +156,8 @@ export class Controller {
       //Capture userId
 
     })
+
+    
 
 
 

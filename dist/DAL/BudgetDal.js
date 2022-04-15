@@ -17,13 +17,11 @@ export class DataAccessLayer {
         return fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-            console.log(data);
             return data;
         })
             .catch(err => console.error(err));
     }
     getLastItem(id) {
-        console.log("getLastItem ran");
         return fetch(ApiEndPoints.getLastItem + id)
             .then(response => response.json())
             .then(data => {

@@ -35,7 +35,6 @@ export class UserForm {
             this.userId = id;
             //Pass the id to the dal
             (yield dal.get(url)).forEach(e => {
-                console.log(e);
                 this.model.saveDataToArr(e.id, this.userId, e.date, e.description, e.amount, e.type);
                 this.view.addToIncome(this.model.getAllInc());
                 this.view.addToExpense(this.model.getAllExp());
@@ -48,6 +47,7 @@ export class UserForm {
             appState.expenseTotal = this.model.getTotals().expenseTotal;
             appState.incomeTotal = this.model.getTotals().incomeTotal;
             this.view.setDisplayValue(this.model.total, this.model.incomeTotal, this.model.expenseTotal);
+            this.view.deleteEventListeners();
         });
     }
     registerUser() {
