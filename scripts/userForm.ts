@@ -34,7 +34,7 @@ export class UserForm {
     async loadFromDb(id:string) {
  
 
-        let dal:DataAccessLayer = new DataAccessLayer(ApiEndpoints.budget,id);
+        let dal:DataAccessLayer = new DataAccessLayer();
         let url = ApiEndpoints.getUserItems + id;
 
         //Saves id from database to object property to be used for future posts and calls
@@ -42,7 +42,7 @@ export class UserForm {
 
         //Pass the id to the dal
 
-        (await dal.get(url)).forEach(e => {
+        (await dal.get()).forEach(e => {
           this.model.saveDataToArr(e.id,this.userId,e.date,e.description, e.amount, e.type)
           this.view.addToIncome(this.model.getAllInc())
           this.view.addToExpense(this.model.getAllExp())
@@ -65,7 +65,7 @@ export class UserForm {
         this.view.setDisplayValue(this.model.total,this.model.incomeTotal,this.model.expenseTotal)
         
        
-        this.view.deleteEventListeners();
+        this.model.eventListenersDelete();
 
     
 

@@ -19,7 +19,7 @@ export class Controller {
         this.model = new Model(0, 0, 0);
         this.view = new View();
         this.apiUrlBudget = ApiEndPoints.budget;
-        this.dal = new DataAccessLayer(null, this.apiUrlBudget);
+        this.dal = new DataAccessLayer();
         this.userForm = new UserForm(View.email_register, View.password_register, View.email_login, View.password_login);
     }
     guestMode() {
@@ -68,7 +68,7 @@ export class Controller {
             this.view.addToExpense(this.model.getAllExp());
             this.syncStateWithModel();
             console.log(appState);
-            this.view.deleteEventListeners();
+            this.model.eventListenersDelete();
         });
     }
     //create submit event listener

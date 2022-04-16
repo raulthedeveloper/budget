@@ -23,7 +23,7 @@ export class Controller {
   view: View = new View();
   userId:number;
   apiUrlBudget:string = ApiEndPoints.budget;
-  dal: DataAccessLayer = new DataAccessLayer(null,this.apiUrlBudget);
+  dal: DataAccessLayer = new DataAccessLayer();
   userForm: UserForm = new UserForm(View.email_register,View.password_register,View.email_login,View.password_login);
 
  
@@ -96,7 +96,7 @@ export class Controller {
 
          console.log(appState)
 
-         this.view.deleteEventListeners();
+         this.model.eventListenersDelete();
 
    });
   }

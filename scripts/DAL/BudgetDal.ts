@@ -5,16 +5,10 @@ import ApiEndPoints from "./ApiEndPoints.js";
 
 
 export class DataAccessLayer {
-    apiUrl:string
-    userId: string
+    
 
-    constructor(apiUrl:string,userId:string){
-      this.apiUrl = apiUrl;
-      this.userId = this.userId
-    }
-
-    get(apiUrl):Promise<BudgetItem[]>{
-     return fetch(apiUrl)
+    get():Promise<BudgetItem[]>{
+     return fetch(ApiEndPoints.budget)
           .then(response => response.json())
           .then(data => {
             return data;
@@ -58,7 +52,13 @@ export class DataAccessLayer {
         .then((res) => res.json())
     }
 
-    delete(id:number, item:BudgetItem):void{
-      console.log(`id:${id} ${item}`)
+   async delete(id:number){
+     console.log("delete request sent")
+      await fetch(ApiEndPoints.budget + id, {
+        method: 'DELETE'
+       
+        })
+        .then(res => res.json)
+        .then(res => console.log(res))
     }
 }

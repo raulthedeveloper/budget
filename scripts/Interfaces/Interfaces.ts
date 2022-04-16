@@ -5,7 +5,7 @@ export interface FormInterface{
 }
 
 export interface BudgetDataInterface{
-    id:string | null | number,
+    id:any,
     date:string | null | Date,
     description:string,
     amount:number,

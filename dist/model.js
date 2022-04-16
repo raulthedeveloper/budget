@@ -1,6 +1,9 @@
 import { BudgetItem } from "./dataModels.js";
+import { DataAccessLayer } from "./DAL/BudgetDal.js";
+import { View } from "./view.js";
 export class Model {
     constructor(total, expenseTotal, incomeTotal) {
+        this.dal = new DataAccessLayer();
         // Creates Unique ID for object
         this.uuid = () => "xxxxxxxx-4xxx-yxxx".replace(/[xy]/g, function (c) {
             var r = (Math.random() * 16) | 0, v = c == "x" ? r : (r & 0x3) | 0x8;
@@ -23,8 +26,45 @@ export class Model {
             this.total -= value;
         }
     }
-    delete(id) {
-        //Will delete from array and subtract from total
+    incomeDelete() {
+        //Loops through income column get all id
+        for (let index = 0; index < View.incomeColumn.children.length; index++) {
+            let id = View.incomeColumn.children[index].children[0].children[1].id;
+            document.getElementById(id).addEventListener("click", () => {
+                //Loops through expense column to remove item that matches id
+                this.allinc.forEach(e => {
+                    let elementId = parseInt(id.split("-", 2)[1]);
+                    if (elementId == e.id) {
+                        let itemIndex = this.allinc.indexOf(e);
+                        this.allinc.splice(itemIndex, 1);
+                        View.incomeColumn.removeChild(View.incomeColumn.children[itemIndex]);
+                        this.dal.delete(parseInt(e.id));
+                    }
+                });
+            });
+        }
+    }
+    expenseDelete() {
+        //Loops through expense column get all id
+        for (let index = 0; index < View.expenseColumn.children.length; index++) {
+            let id = View.expenseColumn.children[index].children[0].children[1].id;
+            document.getElementById(id).addEventListener("click", () => {
+                //Loops through expense column to remove item that matches id
+                this.allExp.forEach(e => {
+                    let elementId = parseInt(id.split("-", 2)[1]);
+                    if (elementId == e.id) {
+                        let itemIndex = this.allExp.indexOf(e);
+                        this.allExp.splice(itemIndex, 1);
+                        View.expenseColumn.removeChild(View.expenseColumn.children[itemIndex]);
+                        this.dal.delete(parseInt(e.id));
+                    }
+                });
+            });
+        }
+    }
+    eventListenersDelete() {
+        this.expenseDelete();
+        this.incomeDelete();
     }
     getTotals() {
         return {

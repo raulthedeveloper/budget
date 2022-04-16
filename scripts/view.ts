@@ -77,25 +77,7 @@ public static closeRegisterBtn = document.getElementById("close-signup") as HTML
     this.clearField()
   }
 
-  deleteEventListeners(){
-    
-    for (let index = 0; index < View.expenseColumn.children.length; index++) {
-
-     let id = View.expenseColumn.children[index].children[0].children[1].id
-      document.getElementById(id).addEventListener("click",() =>{
-       console.log("this will delete expense " + id)
-     })
-      
-    }
-
-    for (let index = 0; index < View.incomeColumn.children.length; index++) {
-     let id = View.incomeColumn.children[index].children[0].children[1].id
-      document.getElementById(id).addEventListener("click",() =>{
-       console.log("this will delete income " + id)
-     })
-      
-    }
-  }
+  
 
   clearColumns():void{
     View.expenseColumn.innerHTML = "";

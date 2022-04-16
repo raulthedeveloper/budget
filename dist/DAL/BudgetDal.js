@@ -9,12 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import ApiEndPoints from "./ApiEndPoints.js";
 export class DataAccessLayer {
-    constructor(apiUrl, userId) {
-        this.apiUrl = apiUrl;
-        this.userId = this.userId;
-    }
-    get(apiUrl) {
-        return fetch(apiUrl)
+    get() {
+        return fetch(ApiEndPoints.budget)
             .then(response => response.json())
             .then(data => {
             return data;
@@ -51,7 +47,14 @@ export class DataAccessLayer {
                 .then((res) => res.json());
         });
     }
-    delete(id, item) {
-        console.log(`id:${id} ${item}`);
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("delete request sent");
+            yield fetch(ApiEndPoints.budget + id, {
+                method: 'DELETE'
+            })
+                .then(res => res.json)
+                .then(res => console.log(res));
+        });
     }
 }
