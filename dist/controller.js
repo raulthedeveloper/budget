@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { View } from './view.js';
 import { Model } from './model.js';
 import { DataAccessLayer } from "./DAL/BudgetDal.js";
-import { BudgetItem } from './dataModels.js';
+import { BudgetItem } from './Models/BudgetItemModel';
 import { UserForm } from "./userForm.js";
 import ApiEndPoints from './DAL/ApiEndPoints.js';
 import { appState } from './Store/AppState.js';

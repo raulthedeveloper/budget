@@ -1,8 +1,9 @@
-import { LoginForm, RegisterForm } from "../dataModels";
+import { LoginForm } from "../Models/LoginFormModel";
+import { RegisterForm } from "../Models/RegisterFormModel";
+
+
 
 //Classed used for user sign in and registration
-
-
 
 export class UserDal{
     apiUrl:string;

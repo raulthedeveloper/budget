@@ -1,5 +1,5 @@
 // Create connections to api
-import { BudgetItem } from "../dataModels.js"
+import { BudgetItem } from "../Models/BudgetItemModel"
 import { budgetInterface } from "../Interfaces/Interfaces.js"
 import ApiEndPoints from "./ApiEndPoints.js";
 

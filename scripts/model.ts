@@ -1,12 +1,11 @@
 import {
     BudgetDataInterface,
-    budgetInterface,
     modelInterface
 } from "./Interfaces/Interfaces.js"
 
-import {
-    BudgetItem
-} from "./dataModels.js";
+
+import { BudgetItem } from "./Models/BudgetItemModel.js";
+
 import {
     DataAccessLayer
 } from "./DAL/BudgetDal.js";
@@ -170,9 +169,9 @@ export class Model implements modelInterface {
 
 
 
-    saveDataToArr(id, userId, date: string, desc: string, amount: number, type: string): void {
+    saveDataToArr(id, userId, date: string | Date, desc: string, amount: number, type: string): void {
 
-
+        console.log(date)
         // let budgetItem = new BudgetItem(this.uuid(),new Date().toLocaleDateString("en-US"),desc,amount,type)
         let budgetItem = new BudgetItem(id, userId, date, desc, amount, type)
 

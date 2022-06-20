@@ -7,7 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { LoginForm, RegisterForm } from "./dataModels.js";
+import { LoginForm } from "./Models/LoginFormModel.js";
+import { RegisterForm } from "./Models/RegisterFormModel.js";
 import { UserDal } from "./DAL/UserDal.js";
 import ApiEndpoints from "./DAL/ApiEndPoints.js";
 import { View } from "./view.js";
@@ -30,11 +31,10 @@ export class UserForm {
     loadFromDb(id) {
         return __awaiter(this, void 0, void 0, function* () {
             let dal = new DataAccessLayer();
-            let url = ApiEndpoints.getUserItems + id;
             //Saves id from database to object property to be used for future posts and calls
             this.userId = id;
             //Pass the id to the dal
-            (yield dal.get()).forEach(e => {
+            (yield dal.get()).forEach((e) => {
                 this.model.saveDataToArr(e.id, this.userId, e.date, e.description, e.amount, e.type);
                 this.view.addToIncome(this.model.getAllInc());
                 this.view.addToExpense(this.model.getAllExp());

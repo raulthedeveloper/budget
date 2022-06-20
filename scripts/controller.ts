@@ -7,7 +7,9 @@ import {
 import {
   DataAccessLayer
 } from "./DAL/BudgetDal.js"
-import { BudgetItem } from './dataModels.js';
+
+
+import { BudgetItem } from './Models/BudgetItemModel';
 
 import {UserForm} from "./userForm.js";
 import ApiEndPoints from './DAL/ApiEndPoints.js';
@@ -74,7 +76,7 @@ export class Controller {
   getLastItem(){
     let amount = parseInt(View.amountDom.value);
 
-    this.dal.getLastItem(this.model.userId).then((e) => {
+    this.dal.getLastItem(this.model.userId).then((e:BudgetItem) => {
 
 
       // Pass values to model to be created into a object and saved in array

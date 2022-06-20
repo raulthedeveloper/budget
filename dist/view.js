@@ -26,13 +26,17 @@ export class View {
             View.submit.disabled = false;
         }
     }
+    budgetCardHtml(income, id, description, amount) {
+        return `<div id="${id}" class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${id}</span><span id="inc-${id}"  class="delete-button">X</span></div>
+    <div class="card-body"><ul class="list-group"><li class="list-group-item">${description}</li><li class="list-group-item list-group-item-${income ? 'success' : 'danger'}">$<span>${amount}</span></li></ul> <button class="btn btn-dark mt-3" style="
+    ">Edit</button> </div></div>`;
+    }
     addToIncome(data) {
         //add to income column
         if (data.length > 0) {
             View.incomeColumn.innerHTML = "";
-            data.forEach(e => {
-                View.incomeColumn.innerHTML += `<div id="${e.id}" class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.id}</span><span id="inc-${e.id}"  class="delete-button">X</span></div>
-        <div class="card-body"><ul class="list-group"><li class="list-group-item">${e.description}</li><li class="list-group-item list-group-item-success">$<span>${e.amount}</span></li></ul> </div></div>`;
+            data.forEach((e) => {
+                View.incomeColumn.innerHTML += this.budgetCardHtml(true, e.id, e.description, e.amount);
             });
         }
         this.clearField();
@@ -43,10 +47,11 @@ export class View {
     }
     addToExpense(data) {
         //add to expense income
+        console.log(data);
         if (data.length > 0) {
             View.expenseColumn.innerHTML = "";
-            data.forEach(e => {
-                View.expenseColumn.innerHTML += `<div id="${e.id}" class="card mb-3"> <div class="card-header text-center d-flex justify-content-between"><span class="pl-5">${e.id}</span><span id="exp-${e.id}" class="delete-button">X</span></div><div class="card-body"><ul class="list-group"><li class="list-group-item">${e.description}</li><li class="list-group-item list-group-item-danger">$<span>${e.amount}</span></li></ul> </div></div>`;
+            data.forEach((e) => {
+                View.expenseColumn.innerHTML += this.budgetCardHtml(false, e.id, e.description, e.amount);
             });
         }
         this.clearField();
