@@ -1,12 +1,12 @@
-import { BudgetItem } from "./Models/BudgetItemModel.js";
-import { LoginForm } from "./Models/LoginFormModel.js";
-import { RegisterForm } from "./Models/RegisterFormModel.js";
-import { UserDal } from "./DAL/UserDal.js";
-import  ApiEndpoints  from "./DAL/ApiEndPoints.js";
-import { View } from "./view.js";
-import { DataAccessLayer } from "./DAL/BudgetDal.js";
-import { Model } from "./model.js";
-import { appState } from "./Store/AppState.js";
+import { BudgetItem } from "./Models/BudgetItemModel";
+import { LoginForm } from "./Models/LoginFormModel";
+import { RegisterForm } from "./Models/RegisterFormModel";
+import { UserDal } from "./DAL/UserDal";
+import  ApiEndpoints  from "./DAL/ApiEndPoints";
+import { View } from "./view";
+import { DataAccessLayer } from "./DAL/BudgetDal";
+import { Model } from "./model";
+import { appState } from "./Store/AppState";
 
 
 export class UserForm {

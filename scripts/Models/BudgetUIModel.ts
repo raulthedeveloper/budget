@@ -1,4 +1,4 @@
-import { BudgetUiInterface } from "../Interfaces/Interfaces.js"
+import { BudgetUiInterface } from "../Interfaces/Interfaces"
 
 
 export class BudgetUI implements BudgetUiInterface{

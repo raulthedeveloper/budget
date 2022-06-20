@@ -1,17 +1,17 @@
 import {
     BudgetDataInterface,
     modelInterface
-} from "./Interfaces/Interfaces.js"
+} from "./Interfaces/Interfaces"
 
 
-import { BudgetItem } from "./Models/BudgetItemModel.js";
+import { BudgetItem } from "./Models/BudgetItemModel";
 
 import {
     DataAccessLayer
-} from "./DAL/BudgetDal.js";
+} from "./DAL/BudgetDal";
 import {
     View
-} from "./view.js";
+} from "./view";
 
 
 

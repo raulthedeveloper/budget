@@ -1,4 +1,4 @@
-import {BudgetDataInterface,FormInterface,BudgetUiInterface} from "../Interfaces/Interfaces.js"
+import {BudgetDataInterface,FormInterface,BudgetUiInterface} from "../Interfaces/Interfaces"
 
 
 export class LoginForm implements FormInterface{

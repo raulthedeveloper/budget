@@ -1,7 +1,7 @@
 // Create connections to api
 import { BudgetItem } from "../Models/BudgetItemModel"
-import { budgetInterface } from "../Interfaces/Interfaces.js"
-import ApiEndPoints from "./ApiEndPoints.js";
+import { budgetInterface } from "../Interfaces/Interfaces"
+import ApiEndPoints from "./ApiEndPoints";
 
 
 export class DataAccessLayer {

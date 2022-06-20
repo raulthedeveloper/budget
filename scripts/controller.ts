@@ -1,19 +1,19 @@
 import {
   View
-} from './view.js'
+} from './view'
 import {
   Model
-} from './model.js'
+} from './model'
 import {
   DataAccessLayer
-} from "./DAL/BudgetDal.js"
+} from "./DAL/BudgetDal"
 
 
 import { BudgetItem } from './Models/BudgetItemModel';
 
-import {UserForm} from "./userForm.js";
-import ApiEndPoints from './DAL/ApiEndPoints.js';
-import { appState } from './Store/AppState.js';
+import {UserForm} from "./userForm";
+import ApiEndPoints from './DAL/ApiEndPoints';
+import { appState } from './Store/AppState';
 
 
 
@@ -73,7 +73,7 @@ export class Controller {
     
   }
 
-  getLastItem(){
+  getLastItem():void{
     let amount = parseInt(View.amountDom.value);
 
     this.dal.getLastItem(this.model.userId).then((e:BudgetItem) => {

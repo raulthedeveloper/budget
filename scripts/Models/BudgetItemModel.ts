@@ -1,4 +1,4 @@
-import {BudgetDataInterface} from "../Interfaces/Interfaces.js"
+import {BudgetDataInterface} from "../Interfaces/Interfaces"
 
 
 export class BudgetItem implements BudgetDataInterface {
