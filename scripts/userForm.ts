@@ -1,10 +1,12 @@
-import { LoginForm,RegisterForm } from "./dataModels.js";
-import { UserDal } from "./DAL/UserDal.js";
-import  ApiEndpoints  from "./DAL/ApiEndPoints.js";
-import { View } from "./view.js";
-import { DataAccessLayer } from "./DAL/BudgetDal.js";
-import { Model } from "./model.js";
-import { appState } from "./Store/AppState.js";
+import { BudgetItem } from "./Models/BudgetItemModel";
+import { LoginForm } from "./Models/LoginFormModel";
+import { RegisterForm } from "./Models/RegisterFormModel";
+import { UserDal } from "./DAL/UserDal";
+import  ApiEndpoints  from "./DAL/ApiEndPoints";
+import { View } from "./view";
+import { DataAccessLayer } from "./DAL/BudgetDal";
+import { Model } from "./model";
+import { appState } from "./Store/AppState";
 
 
 export class UserForm {
@@ -35,15 +37,13 @@ export class UserForm {
  
 
         let dal:DataAccessLayer = new DataAccessLayer();
-        let url = ApiEndpoints.getUserItems + id;
-
         //Saves id from database to object property to be used for future posts and calls
         this.userId = id;
 
         //Pass the id to the dal
 
-        (await dal.get()).forEach(e => {
-          this.model.saveDataToArr(e.id,this.userId,e.date,e.description, e.amount, e.type)
+        (await dal.get()).forEach((e:BudgetItem) => {
+          this.model.saveDataToArr(e.id,this.userId, e.date, e.description, e.amount, e.type)
           this.view.addToIncome(this.model.getAllInc())
           this.view.addToExpense(this.model.getAllExp())
 

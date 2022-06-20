@@ -1,4 +1,4 @@
-import { BudgetItem } from "../dataModels";
+import { BudgetItem } from "../Models/BudgetItemModel";
 import { BudgetDataInterface } from "../Interfaces/Interfaces";
 
  class AppState {

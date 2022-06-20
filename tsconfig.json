@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "target": "ES6",
-        "outDir": "./dist",
+        "outDir": "dist_old",
+        "sourceMap": true,
         "rootDir": "scripts"
     },
         "exclude": ["node_modules"]

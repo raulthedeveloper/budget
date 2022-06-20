@@ -2,11 +2,11 @@ const express = require('express')
 const app = express()
 const port = 4444
 const path = require('path')
-const appDir = path.resolve('./') + '/index.html';
+const appDir = path.resolve('./') + '/public/index.html';
 
 
 
-app.use('/dist', express.static('dist'));
+app.use('/', express.static('public'));
 
 
 app.get('/', (req, res) => {

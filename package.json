@@ -8,7 +8,8 @@
     "build": "tsc ./scripts/main.ts --outDir ./dist --target es6 ",
     "watch": "tsc ./scripts/main.ts --outDir ./dist --watch --target es6",
     "server": "node Server/main.js",
-    "server-dev": "nodemon Server/main.js"
+    "server-dev": "nodemon Server/main.js",
+    "build-webpack":"webpack"
   },
   "repository": {
     "type": "git",
@@ -22,11 +23,14 @@
   "homepage": "https://github.com/raulthedeveloper/budget#readme",
   "devDependencies": {
     "@types/jquery": "^3.5.14",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
   },
   "dependencies": {
     "express": "^4.17.3",
     "express-handlebars": "^6.0.5",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "ts-loader": "^9.3.0"
   }
 }
